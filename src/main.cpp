@@ -163,27 +163,29 @@ void pre_match() {
       current_auton_selection = 0;
     }
 
-    Brain.Screen.clearScreen();
-    Brain.Screen.printAt(5, 20, "JAR Template v1.2.0");
-    Brain.Screen.printAt(5, 40, "Battery Percentage:");
-    Brain.Screen.printAt(5, 60, "%d", Brain.Battery.capacity());
-    Brain.Screen.printAt(5, 80, "Chassis Heading Reading:");
-    Brain.Screen.printAt(5, 100, "%f", chassis.get_absolute_heading());
-    Brain.Screen.printAt(5, 120, "Selected Color:");
+    Brain.Screen.printAt(200, 120, "Selected Color:");
     switch(current_driver_selection)
     {
       case 0:
-        Brain.Screen.printAt(5, 140, "Red");
+        Brain.Screen.printAt(200, 140, "Red");
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Blue");
+        Brain.Screen.printAt(200, 140, "Blue");
         break;
     }
-    if(Brain.Screen.pressing()){
+    if (COLOR.hue() < 15)
+    {
+      current_driver_selection = 0;
+    }
+    else
+    {
+      current_driver_selection = 1;
+    }
+    /*if(Brain.Screen.pressing()){
       while(Brain.Screen.pressing()) {}
       current_driver_selection ++;
     } else if (current_driver_selection == 2){
-      current_driver_selection = 0;
+      current_driver_selection = 0;*/
 
     task::sleep(10);
   }
@@ -196,15 +198,15 @@ void pre_match() {
  * autons.cpp and declared in autons.h.
  */
 
-void autonomous(void); 
+void autonomous(void) 
 {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      drive_test();
+      red_rush();
       break;
     case 1:         
-      drive_test();
+      red_rush();
       break;
     case 2:
       turn_test();
@@ -237,7 +239,7 @@ void autonomous(void);
 /*  You must modify the code to add your own robot specific commands here.   */
 /*---------------------------------------------------------------------------*/
 
-void usercontrol(void); 
+void usercontrol(void) 
 {
   auto_started = true;
   switch(current_driver_selection)
@@ -254,7 +256,7 @@ void usercontrol(void);
 //
 // Main will set up the competition functions and callbacks.
 //
-int main();
+int main()
 {
   // Set up callbacks for autonomous and driver control periods.
   Competition.autonomous(autonomous);

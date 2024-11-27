@@ -1,5 +1,14 @@
 #include "vex.h"
 
+
+int stopFor(motor a, int b)
+{
+  a.spinFor(0.01, seconds);
+  vex::task::sleep(b);
+  a.stop();
+  return 0;
+}
+
 /**
  * Resets the constants for auton movement.
  * Modify these to change the default behavior of functions like
@@ -42,12 +51,10 @@ void odom_constants()
  * The expected behavior is to return to the start position.
  */
 
-void drive_test()
+void red_rush()
 {
-  chassis.drive_distance(6);
-  chassis.drive_distance(12);
-  chassis.drive_distance(18);
-  chassis.drive_distance(-36);
+  odom_constants();
+  
 }
 
 /**
@@ -146,10 +153,9 @@ void redColor()
   Right1.setVelocity(100, percent);
   Right2.setVelocity(100, percent);
   Right3.setVelocity(100, percent);
-  DriveL.setVelocity(100, percent);
-  DriveR.setVelocity(100, percent);
   Intake.setVelocity(100, percent);
   ClampScoopRatchet.setVelocity(100, percent);
+  WallThingy.setVelocity(20, percent);
 
   // Buttons for clamp
   Controller1.ButtonA.pressed([]()
@@ -160,8 +166,18 @@ void redColor()
   Controller1.ButtonB.pressed([]()
   {
     ClampScoopRatchet.spinFor(forward, 300, degrees);
-    wait(5, seconds);
+    stopFor(ClampScoopRatchet, 3);
     ClampScoopRatchet.spinFor(forward, 600, degrees);
+  });
+
+  Controller1.ButtonL2.pressed([]()
+  {
+    WallThingy.spin(forward);
+  });
+
+  Controller1.ButtonL1.pressed([]()
+  {
+    WallThingy.spin(reverse);
   });
 
   // Throwing Wrong Color
@@ -171,9 +187,8 @@ void redColor()
   if (hueColor > 150) 
   {
     Intake.stop();
-    wait(100, msec);
     Intake.spinFor(reverse, 358, degrees);
-    wait(1, seconds);
+    stopFor(Intake, 1);
   }
   else
   {
@@ -205,10 +220,9 @@ void blueColor()
   Right1.setVelocity(100, percent);
   Right2.setVelocity(100, percent);
   Right3.setVelocity(100, percent);
-  DriveL.setVelocity(100, percent);
-  DriveR.setVelocity(100, percent);
   Intake.setVelocity(100, percent);
   ClampScoopRatchet.setVelocity(100, percent);
+  WallThingy.setVelocity(20, percent);
 
   // Buttons for clamp
   Controller1.ButtonA.pressed([]()
@@ -219,8 +233,18 @@ void blueColor()
   Controller1.ButtonB.pressed([]()
   {
     ClampScoopRatchet.spinFor(forward, 300, degrees);
-    wait(5, seconds);
+    stopFor(ClampScoopRatchet, 3);
     ClampScoopRatchet.spinFor(forward, 600, degrees);
+  });
+
+  Controller1.ButtonL2.pressed([]()
+  {
+    WallThingy.spin(forward);
+  });
+
+  Controller1.ButtonL1.pressed([]()
+  {
+    WallThingy.spin(reverse);
   });
 
   // Throwing Wrong Color
@@ -230,9 +254,8 @@ void blueColor()
   if (hueColor < 25) 
   {
     Intake.stop();
-    wait(100, msec);
     Intake.spinFor(reverse, 358, degrees);
-    wait(1, seconds);
+    stopFor(Intake, 1);
   }
   else
   {
