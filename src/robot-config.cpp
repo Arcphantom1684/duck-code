@@ -17,12 +17,11 @@ motor Right2 = motor(PORT5, ratio6_1, false);
 motor Right3 = motor(PORT6, ratio6_1, false);
 motor ClampScoopRatchet = motor(PORT8, ratio18_1, false);
 motor WallThingy = motor(PORT10, ratio18_1, false);
-motor Intake = motor(PORT7, ratio18_1, false);
+motor Intake = motor(PORT7, ratio6_1, false);
 optical COLOR = optical(PORT20);
 inertial INERTIAL = inertial(PORT18);
 controller Controller1 = controller(primary);
 //Add your devices below, and don't forget to do the same in robot-config.h:
-
 
 void vexcodeInit( void ) {
   // nothing to initialize
