@@ -160,14 +160,13 @@ void redColor()
   // Buttons for clamp
   Controller1.ButtonA.pressed([]()
   {
-    ClampScoopRatchet.spinFor(forward, 900, degrees);
+    ClampScoopRatchet.spinFor(forward, 1300, degrees);
   });
 
   Controller1.ButtonB.pressed([]()
   {
-    ClampScoopRatchet.spinFor(forward, 300, degrees);
-    stopFor(ClampScoopRatchet, 3);
-    ClampScoopRatchet.spinFor(forward, 600, degrees);
+    ClampScoopRatchet.spinFor(forward, 500, degrees);
+    
   });
 
   Controller1.ButtonL2.pressed([]()
