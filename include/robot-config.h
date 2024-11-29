@@ -15,8 +15,6 @@ extern motor WallThingy;
 extern controller Controller1;
 extern motor Intake;
 extern optical COLOR;
-
-
 //Add your devices below, and don't forget to do the same in robot-config.cpp:
 
 

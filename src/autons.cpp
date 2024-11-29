@@ -1,5 +1,6 @@
 #include "vex.h"
 
+bool Acounter = 0;
 
 int stopFor(motor a, int b)
 {
@@ -157,52 +158,51 @@ void redColor()
   ClampScoopRatchet.setVelocity(100, percent);
   WallThingy.setVelocity(20, percent);
 
-  // Buttons for clamp
-  Controller1.ButtonA.pressed([]()
-  {
-    ClampScoopRatchet.spinFor(forward, 1300, degrees);
-  });
-
-  Controller1.ButtonB.pressed([]()
-  {
-    ClampScoopRatchet.spinFor(forward, 500, degrees);
-    
-  });
-
-  Controller1.ButtonL2.pressed([]()
-  {
-    WallThingy.spin(forward);
-  });
-
-  Controller1.ButtonL1.pressed([]()
-  {
-    WallThingy.spin(reverse);
-  });
-
-  // Throwing Wrong Color
   COLOR.setLight(ledState::on);
   COLOR.brightness(100);
   int hueColor = COLOR.hue();
-  if (hueColor > 150) 
+
+  while (1)
   {
-    Intake.stop();
-    Intake.spinFor(reverse, 358, degrees);
-    stopFor(Intake, 1);
-  }
-  else
-  {
-    if (Controller1.ButtonR2.pressing())
+    if (hueColor > 150) 
     {
-      Intake.spin(reverse);
+      Intake.stop();
+      Intake.spinFor(reverse, 358, degrees);
+      stopFor(Intake, 1);
     }
     else
     {
-      Intake.stop();
+      if (Controller1.ButtonR2.pressing())
+      {
+        Intake.spin(reverse);
+      }
+      else
+      {
+        Intake.stop();
+      }
     }
-  }
-  while (1)
-  {
-    
+
+    if (Controller1.ButtonL2.pressing())
+    {
+      WallThingy.spin(forward);
+    }
+    if (Controller1.ButtonL1.pressing())
+    {
+      WallThingy.spin(reverse);
+    }
+
+    if (Controller1.ButtonA.pressing())
+    {
+      if (Acounter == 0)
+      {
+        ClampScoopRatchet.spinFor(1200, degrees);
+      }
+      else
+      {
+        ClampScoopRatchet.spinFor(600, degrees);
+      }
+      Acounter++;
+    }
 
     chassis.control_tank();
     wait(20, msec); // Sleep the task for a short amount of time to
@@ -223,53 +223,51 @@ void blueColor()
   ClampScoopRatchet.setVelocity(100, percent);
   WallThingy.setVelocity(20, percent);
 
-  // Buttons for clamp
-  Controller1.ButtonA.pressed([]()
-  {
-    ClampScoopRatchet.spinFor(forward, 900, degrees);
-  });
-
-  Controller1.ButtonB.pressed([]()
-  {
-    ClampScoopRatchet.spinFor(forward, 300, degrees);
-    stopFor(ClampScoopRatchet, 3);
-    ClampScoopRatchet.spinFor(forward, 600, degrees);
-  });
-
-  Controller1.ButtonL2.pressed([]()
-  {
-    WallThingy.spin(forward);
-  });
-
-  Controller1.ButtonL1.pressed([]()
-  {
-    WallThingy.spin(reverse);
-  });
-
-  // Throwing Wrong Color
   COLOR.setLight(ledState::on);
   COLOR.brightness(100);
   int hueColor = COLOR.hue();
-  if (hueColor < 25) 
+  
+  while (1)
   {
-    Intake.stop();
-    Intake.spinFor(reverse, 358, degrees);
-    stopFor(Intake, 1);
-  }
-  else
-  {
-    if (Controller1.ButtonR2.pressing())
+    if (hueColor > 150) 
     {
-      Intake.spin(reverse);
+      Intake.stop();
+      Intake.spinFor(reverse, 358, degrees);
+      stopFor(Intake, 1);
     }
     else
     {
-      Intake.stop();
+      if (Controller1.ButtonR2.pressing())
+      {
+        Intake.spin(reverse);
+      }
+      else
+      {
+        Intake.stop();
+      }
     }
-  }
-  while (1)
-  {
-    
+
+    if (Controller1.ButtonL2.pressing())
+    {
+      WallThingy.spin(forward);
+    }
+    if (Controller1.ButtonL1.pressing())
+    {
+      WallThingy.spin(reverse);
+    }
+
+    if (Controller1.ButtonA.pressing())
+    {
+      if (Acounter % 2 == 0)
+      {
+        ClampScoopRatchet.spinFor(1200, degrees);
+      }
+      else
+      {
+        ClampScoopRatchet.spinFor(600, degrees);
+      }
+      Acounter++;
+    }
 
     chassis.control_tank();
     wait(20, msec); // Sleep the task for a short amount of time to
