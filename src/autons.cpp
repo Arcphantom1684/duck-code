@@ -1,6 +1,7 @@
 #include "vex.h"
 
 bool Acounter = 0;
+bool wasButtonPressed = false;
 
 int stopFor(motor a, int b)
 {
@@ -55,7 +56,37 @@ void odom_constants()
 void red_rush()
 {
   odom_constants();
-  
+   Left1.setVelocity(100, percent);
+  Left2.setVelocity(100, percent);
+  Left3.setVelocity(100, percent);
+  Right1.setVelocity(100, percent);
+  Right2.setVelocity(100, percent);
+  Right3.setVelocity(100, percent);
+  Intake.setVelocity(100, percent);
+  ClampScoopRatchet.setVelocity(100, percent);
+  WallThingy.setVelocity(70, percent);
+  ClampScoopRatchet.spinFor(-300, degrees);
+  chassis.drive_distance(-65);
+  chassis.turn_to_angle(-33);
+  chassis.drive_distance(-11);
+  ClampScoopRatchet.spinFor(300, degrees);
+  chassis.drive_distance(11);
+  chassis.turn_to_angle(0);
+  chassis.drive_distance(60);
+  Intake.spinFor(-1000, degrees);
+  chassis.turn_to_angle(-100);
+  chassis.drive_distance(-25);
+  ClampScoopRatchet.spinFor(-300, degrees);
+  chassis.drive_distance(25);
+  chassis.turn_to_angle(34);
+  chassis.drive_distance(-31);
+  ClampScoopRatchet.spinFor(300, degrees);
+  chassis.turn_to_angle(120);
+  Intake.spin(reverse);
+  chassis.drive_distance(40);
+  chassis.turn_to_angle(-90);
+
+
 }
 
 /**
@@ -147,6 +178,8 @@ void holonomic_odom_test()
 
 void redColor()
 {
+  WallThingy.setStopping(vex::hold);
+  ClampScoopRatchet.setStopping(vex::hold);
   // Changing the velocity of the motors and sides
   Left1.setVelocity(100, percent);
   Left2.setVelocity(100, percent);
@@ -156,7 +189,7 @@ void redColor()
   Right3.setVelocity(100, percent);
   Intake.setVelocity(100, percent);
   ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(20, percent);
+  WallThingy.setVelocity(70, percent);
 
   COLOR.setLight(ledState::on);
   COLOR.brightness(100);
@@ -176,7 +209,11 @@ void redColor()
       {
         Intake.spin(reverse);
       }
-      else
+      else if (Controller1.ButtonR1.pressing())
+      {
+        Intake.spin(forward);
+      }
+      else 
       {
         Intake.stop();
       }
@@ -186,22 +223,26 @@ void redColor()
     {
       WallThingy.spin(forward);
     }
-    if (Controller1.ButtonL1.pressing())
+    else if (Controller1.ButtonL1.pressing())
     {
       WallThingy.spin(reverse);
+    }
+    else
+    {
+      WallThingy.stop();
     }
 
     if (Controller1.ButtonA.pressing())
     {
-      if (Acounter == 0)
-      {
-        ClampScoopRatchet.spinFor(1200, degrees);
-      }
-      else
-      {
-        ClampScoopRatchet.spinFor(600, degrees);
-      }
-      Acounter++;
+       ClampScoopRatchet.spinFor(-300, degrees);
+    }
+    else if (Controller1.ButtonB.pressing())
+    {
+      ClampScoopRatchet.spinFor(300, degrees);
+    }
+    else
+    {
+      ClampScoopRatchet.stop();
     }
 
     chassis.control_tank();
@@ -212,6 +253,8 @@ void redColor()
 
 void blueColor()
 {
+  WallThingy.setStopping(vex::hold);
+  ClampScoopRatchet.setStopping(vex::hold);
   // Changing the velocity of the motors and sides
   Left1.setVelocity(100, percent);
   Left2.setVelocity(100, percent);
@@ -221,7 +264,7 @@ void blueColor()
   Right3.setVelocity(100, percent);
   Intake.setVelocity(100, percent);
   ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(20, percent);
+  WallThingy.setVelocity(70, percent);
 
   COLOR.setLight(ledState::on);
   COLOR.brightness(100);
@@ -241,7 +284,11 @@ void blueColor()
       {
         Intake.spin(reverse);
       }
-      else
+      else if (Controller1.ButtonR1.pressing())
+      {
+        Intake.spin(forward);
+      }
+      else 
       {
         Intake.stop();
       }
@@ -251,22 +298,26 @@ void blueColor()
     {
       WallThingy.spin(forward);
     }
-    if (Controller1.ButtonL1.pressing())
+    else if (Controller1.ButtonL1.pressing())
     {
       WallThingy.spin(reverse);
+    }
+    else
+    {
+      WallThingy.stop();
     }
 
     if (Controller1.ButtonA.pressing())
     {
-      if (Acounter % 2 == 0)
-      {
-        ClampScoopRatchet.spinFor(1200, degrees);
-      }
-      else
-      {
-        ClampScoopRatchet.spinFor(600, degrees);
-      }
-      Acounter++;
+       ClampScoopRatchet.spinFor(-300, degrees);
+    }
+    else if (Controller1.ButtonB.pressing())
+    {
+      ClampScoopRatchet.spinFor(300, degrees);
+    }
+    else
+    {
+      ClampScoopRatchet.stop();
     }
 
     chassis.control_tank();
