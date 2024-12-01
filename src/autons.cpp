@@ -65,26 +65,27 @@ void red_rush()
   Intake.setVelocity(100, percent);
   ClampScoopRatchet.setVelocity(100, percent);
   WallThingy.setVelocity(70, percent);
-  ClampScoopRatchet.spinFor(-300, degrees);
   chassis.drive_distance(-65);
   chassis.turn_to_angle(-33);
   chassis.drive_distance(-11);
   ClampScoopRatchet.spinFor(300, degrees);
   chassis.drive_distance(11);
   chassis.turn_to_angle(0);
+  Intake.spin(reverse);
   chassis.drive_distance(60);
-  Intake.spinFor(-1000, degrees);
-  chassis.turn_to_angle(-100);
-  chassis.drive_distance(-25);
+  Intake.stop();
+  chassis.turn_to_angle(120);
+  chassis.drive_distance(-10);
   ClampScoopRatchet.spinFor(-300, degrees);
-  chassis.drive_distance(25);
-  chassis.turn_to_angle(34);
-  chassis.drive_distance(-31);
+  chassis.right_swing_to_angle(34);
+  chassis.drive_distance(-41);
   ClampScoopRatchet.spinFor(300, degrees);
   chassis.turn_to_angle(120);
   Intake.spin(reverse);
   chassis.drive_distance(40);
-  chassis.turn_to_angle(-90);
+  chassis.turn_to_angle(85);
+  chassis.drive_distance(-64);
+  Intake.stop();
 
 
 }
