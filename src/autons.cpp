@@ -229,11 +229,11 @@ void redColor()
 
     if (Controller1.ButtonL2.pressing())
     {
-      WallThingy.spin(forward);
+      WallThingy.spin(reverse);
     }
     else if (Controller1.ButtonL1.pressing())
     {
-      WallThingy.spin(reverse);
+      WallThingy.spin(forward);
     }
     else
     {
@@ -272,7 +272,7 @@ void blueColor()
   Right3.setVelocity(100, percent);
   Intake.setVelocity(100, percent);
   ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(70, percent);
+  WallThingy.setVelocity(100, percent);
 
   COLOR.setLight(ledState::on);
   COLOR.brightness(100);
@@ -304,11 +304,11 @@ void blueColor()
 
     if (Controller1.ButtonL2.pressing())
     {
-      WallThingy.spin(forward);
+      WallThingy.spin(reverse);
     }
     else if (Controller1.ButtonL1.pressing())
     {
-      WallThingy.spin(reverse);
+      WallThingy.spin(forward);
     }
     else
     {
