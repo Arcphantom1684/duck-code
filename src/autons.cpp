@@ -56,7 +56,10 @@ void odom_constants()
 void red_rush()
 {
   odom_constants();
-   Left1.setVelocity(100, percent);
+  COLOR.setLight(ledState::on);
+  COLOR.brightness(100);
+  int hueColor = COLOR.hue();
+  Left1.setVelocity(100, percent);
   Left2.setVelocity(100, percent);
   Left3.setVelocity(100, percent);
   Right1.setVelocity(100, percent);
@@ -69,25 +72,29 @@ void red_rush()
   chassis.turn_to_angle(-33);
   chassis.drive_distance(-11);
   ClampScoopRatchet.spinFor(300, degrees);
-  chassis.drive_distance(11);
-  chassis.turn_to_angle(0);
+  Intake.spinFor(reverse, 700, degrees);
   Intake.spin(reverse);
-  chassis.drive_distance(60);
-  Intake.stop();
-  chassis.turn_to_angle(120);
-  chassis.drive_distance(-10);
+  chassis.turn_to_angle(50);
+  chassis.drive_distance(30);
+  while ( 1 )
+  {
+    if (COLOR.hue() < 20)
+    {
+      Intake.stop();
+      break;
+    }
+  }
+  chassis.turn_to_angle(180);
+  chassis.drive_distance(-15);
   ClampScoopRatchet.spinFor(-300, degrees);
-  chassis.right_swing_to_angle(34);
-  chassis.drive_distance(-41);
+  chassis.drive_distance(9);
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(-35);
   ClampScoopRatchet.spinFor(300, degrees);
-  chassis.turn_to_angle(120);
-  Intake.spin(reverse);
-  chassis.drive_distance(40);
-  chassis.turn_to_angle(85);
-  chassis.drive_distance(-64);
-  Intake.stop();
-
-
+  Intake.spinFor(reverse, 500, degrees);
+  chassis.turn_to_angle(65);
+  WallThingy.spinFor(reverse, 300, degrees);
+  chassis.drive_distance(-35);
 }
 
 /**
