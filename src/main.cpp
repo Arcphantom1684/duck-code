@@ -203,13 +203,13 @@ void autonomous(void)
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      red_rush();
+      red_wp();
       break;
     case 1:         
-      red_rush();
+      blue_rush();
       break;
     case 2:
-      turn_test();
+      blue_rush();
       break;
     case 3:
       swing_test();
