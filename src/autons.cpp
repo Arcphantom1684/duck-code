@@ -3,12 +3,12 @@
 bool Acounter = 0;
 bool wasButtonPressed = false;
 
-int stopFor(motor a, int b)
+void stopFor(motor a, int b)
 {
-  a.spinFor(0.01, seconds);
-  vex::task::sleep(b);
+  a.spinFor(0.1, degrees);
   a.stop();
-  return 0;
+  this_thread::sleep_for(b);
+  a.spinFor(0.1, degrees);
 }
 
 /**
