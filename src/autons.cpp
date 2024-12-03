@@ -1,7 +1,6 @@
 #include "vex.h"
 
-bool Acounter = 0;
-bool wasButtonPressed = false;
+int Acounter = 0;
 
 void stopFor(motor a, int b)
 {
@@ -9,6 +8,20 @@ void stopFor(motor a, int b)
   a.stop();
   this_thread::sleep_for(b);
   a.spinFor(0.1, degrees);
+}
+
+void AbuttonRotater()
+{
+  if (Acounter % 2 == 0)
+  {
+    ClampScoopRatchet.spinFor(-300, degrees);
+    Acounter++;
+  }
+  else if (Acounter % 2 != 0)
+  {
+    ClampScoopRatchet.spinFor(300, degrees);
+    Acounter++;
+  }
 }
 
 /**
@@ -173,7 +186,7 @@ void odom_test()
     Brain.Screen.printAt(5,60, "Heading: %f", chassis.get_absolute_heading());
     Brain.Screen.printAt(5,80, "ForwardTracker: %f", chassis.get_ForwardTracker_position());
     Brain.Screen.printAt(5,100, "SidewaysTracker: %f", chassis.get_SidewaysTracker_position());
-    task::sleep(20);
+    wait (20, msec);
   }
 }
 
@@ -265,7 +278,7 @@ void redColor()
 
     if (Controller1.ButtonA.pressing())
     {
-       ClampScoopRatchet.spinFor(-300, degrees);
+      ClampScoopRatchet.spinFor(-300, degrees);
     }
     else if (Controller1.ButtonB.pressing())
     {
@@ -340,7 +353,7 @@ void blueColor()
 
     if (Controller1.ButtonA.pressing())
     {
-       ClampScoopRatchet.spinFor(-300, degrees);
+      ClampScoopRatchet.spinFor(-300, degrees);
     }
     else if (Controller1.ButtonB.pressing())
     {
