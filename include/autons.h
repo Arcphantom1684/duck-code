@@ -9,8 +9,8 @@ void default_constants();
 
 // auton
 void blue_rush();
-void red_wp();
-void swing_test();
+void red_wp_3rings();
+void red_wp_4rings();
 void full_test();
 void odom_test();
 void tank_odom_test();

@@ -203,7 +203,7 @@ void autonomous(void)
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      red_wp();
+      blue_rush();
       break;
     case 1:         
       blue_rush();
@@ -212,10 +212,10 @@ void autonomous(void)
       blue_rush();
       break;
     case 3:
-      swing_test();
+      red_wp_3rings();
       break;
     case 4:
-      full_test();
+      red_wp_4rings();
       break;
     case 5:
       odom_test();
