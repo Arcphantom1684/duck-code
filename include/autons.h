@@ -11,7 +11,7 @@ void default_constants();
 void blue_rush();
 void red_wp_3rings();
 void red_wp_4rings();
-void full_test();
+void skills();
 void odom_test();
 void tank_odom_test();
 void holonomic_odom_test();

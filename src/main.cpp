@@ -203,7 +203,7 @@ void autonomous(void)
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      blue_rush();
+      skills();
       break;
     case 1:         
       blue_rush();

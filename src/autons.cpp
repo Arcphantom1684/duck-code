@@ -190,18 +190,51 @@ void red_wp_4rings()
   chassis.drive_distance(33);
 }
 
-/**
- * A little of this, a little of that; it should end roughly where it started.
- */
-
-void full_test()
+void skills()
 {
-  chassis.drive_distance(24);
-  chassis.turn_to_angle(-45);
-  chassis.drive_distance(-36);
-  chassis.right_swing_to_angle(-90);
-  chassis.drive_distance(24);
+  odom_constants();
+  chassis.set_coordinates(0, 0, 0);
+  COLOR.setLight(ledState::on);
+  COLOR.brightness(100);
+  Left1.setVelocity(100, percent);
+  Left2.setVelocity(100, percent);
+  Left3.setVelocity(100, percent);
+  Right1.setVelocity(100, percent);
+  Right2.setVelocity(100, percent);
+  Right3.setVelocity(100, percent);
+  Intake.setVelocity(101, percent);
+  ClampScoopRatchet.setVelocity(100, percent);
+  WallThingy.setVelocity(100, percent);
+  ClampScoopRatchet.spinFor(-300, degrees, false);
+  chassis.drive_distance(-5);
+  WallThingy.spinFor(-715, degrees, true);
+  wait (500, msec);
+  WallThingy.spinFor(720, degrees, false);
+  chassis.drive_distance(-13);
+  chassis.turn_to_angle(-90);
+  chassis.drive_distance(-30);
+  ClampScoopRatchet.spinFor(300, degrees, true);
+  chassis.drive_distance(-15);
+  chassis.turn_to_angle(180);
+  Intake.spin(reverse);
+  chassis.drive_distance(43);
+  wait (1000, msec);
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(45);
+  wait (1000, msec);
   chassis.turn_to_angle(0);
+  wait (1000, msec);
+  chassis.drive_distance(35);
+  wait (1, seconds);
+  chassis.drive_distance(22);
+  chassis.turn_to_angle(-100);
+  chassis.drive_distance(-15);
+  ClampScoopRatchet.spinFor(-300, degrees, true);
+  chassis.drive_distance(15);
+  chassis.turn_to_angle(180);
+  chassis.drive_distance(-10);
+  chassis.set_coordinates(0, 0, 0);
+  chassis.drive_distance(100);
 }
 
 /**
@@ -317,11 +350,11 @@ void redColor()
 
     if (Controller1.ButtonA.pressing())
     {
-      ClampScoopRatchet.spinFor(-300, degrees);
+      ClampScoopRatchet.spinFor(-300, degrees, false);
     }
     else if (Controller1.ButtonB.pressing())
     {
-      ClampScoopRatchet.spinFor(300, degrees);
+      ClampScoopRatchet.spinFor(300, degrees, false);
     }
     else
     {
