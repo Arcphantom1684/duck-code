@@ -225,9 +225,9 @@ void pre_match() {
 void autonomous(void) 
 {
   auto_started = true;
-  switch(current_auton_selection && current_driver_selection){ 
+  switch(current_auton_selection){ 
     case 0:
-      red_rush();
+      red_wp_4rings();
       redColor();
       break;
     case 1:         

@@ -208,7 +208,7 @@ void red_rush()
   chassis.drive_distance(30);
   while ( 1 )
   {
-    if (COLOR.hue() < 200)
+    if (COLOR.hue() > 200)
     {
       Intake.stop();
       break;
