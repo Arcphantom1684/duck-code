@@ -134,42 +134,50 @@ void pre_match() {
       case 0:
         Brain.Screen.printAt(5, 140, "Red WP | 4 Rings");
         Brain.Screen.setFillColor(color::red);
-        Brain.Screen.drawRectangle(420, 272, 50, 272);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::red);
         break;
       case 1:
         Brain.Screen.printAt(5, 140, "Blue WP | 4 Rings");
         Brain.Screen.setFillColor(color::blue);
-        Brain.Screen.drawRectangle(420, 272, 50, 272);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::blue);
         break;
       case 2:
         Brain.Screen.printAt(5, 140, "Red Rush");
         Brain.Screen.setFillColor(color::red);
-        Brain.Screen.drawRectangle(420, 272, 50, 272);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::red);
         break;
       case 3:
         Brain.Screen.printAt(5, 140, "Blue Rush");
         Brain.Screen.setFillColor(color::blue);
-        Brain.Screen.drawRectangle(420, 272, 50, 272);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::blue);
         break;
       case 4:
         Brain.Screen.printAt(5, 140, "Red WP | 3 Rings");
         Brain.Screen.setFillColor(color::red);
-        Brain.Screen.drawRectangle(420, 272, 50, 272);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::red);
         break;
       case 5:
-        Brain.Screen.printAt(5, 140, "Blue WP | 4 Rings");
+        Brain.Screen.printAt(5, 140, "Blue WP | 3 Rings");
         Brain.Screen.setFillColor(color::blue);
-        Brain.Screen.drawRectangle(420, 272, 50, 272);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::blue);
         break;
       case 6:
         Brain.Screen.printAt(5, 140, "Skills Driver");
         Brain.Screen.setFillColor(color::white);
-        Brain.Screen.drawRectangle(420, 272, 50, 272);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::white);
         break;
       case 7:
         Brain.Screen.printAt(5, 140, "Skills Auton");
         Brain.Screen.setFillColor(color::white);
-        Brain.Screen.drawRectangle(420, 272, 50, 272);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::white);
         break;
     }
     if(Brain.Screen.pressing()){
@@ -217,9 +225,10 @@ void pre_match() {
 void autonomous(void) 
 {
   auto_started = true;
-  switch(current_auton_selection){ 
+  switch(current_auton_selection && current_driver_selection){ 
     case 0:
-      red_wp_4rings();
+      red_rush();
+      redColor();
       break;
     case 1:         
       blue_wp_4rings();

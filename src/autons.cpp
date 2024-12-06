@@ -173,9 +173,9 @@ void red_wp_4rings()
   chassis.drive_distance(-47);
   chassis.turn_to_angle(98);
   chassis.drive_distance(-34);
-  wait (200, msec);
-  chassis.drive_distance(-5);
-  ClampScoopRatchet.spinFor(300, degrees, true);
+  wait (50, msec);
+  chassis.drive_distance(-8);
+  ClampScoopRatchet.spinFor(310, degrees, true);
   wait (10, msec);
   chassis.turn_to_angle(187);
   Intake.spin(reverse);
@@ -201,10 +201,10 @@ void red_rush()
   chassis.drive_distance(-73);
   chassis.turn_to_angle(30);
   chassis.drive_distance(-11);
-  ClampScoopRatchet.spinFor(300, degrees, true);
+  ClampScoopRatchet.spinFor(310, degrees, true);
   Intake.spinFor(reverse, 700, degrees);
   Intake.spin(reverse);
-  chassis.turn_to_angle(-54);
+  chassis.turn_to_angle(-60);
   chassis.drive_distance(30);
   while ( 1 )
   {
@@ -217,10 +217,10 @@ void red_rush()
   chassis.turn_to_angle(-180);
   chassis.drive_distance(-15);
   ClampScoopRatchet.spinFor(-300, degrees);
-  chassis.drive_distance(9);
-  chassis.turn_to_angle(-90);
+  chassis.drive_distance(8);
+  chassis.turn_to_angle(-89);
   chassis.drive_distance(-34);
-  ClampScoopRatchet.spinFor(300, degrees, true);
+  ClampScoopRatchet.spinFor(310, degrees, true);
   Intake.spinFor(reverse, 500, degrees);
   chassis.turn_to_angle(-65);
   WallThingy.spinFor(reverse, 300, degrees, false);
@@ -237,7 +237,7 @@ void blue_wp_3rings()
   chassis.drive_distance(-46);
   chassis.turn_to_angle(97);
   chassis.drive_distance(-39);
-  ClampScoopRatchet.spinFor(300, degrees, true);
+  ClampScoopRatchet.spinFor(310, degrees, true);
   wait (10, msec);
   chassis.turn_to_angle(187);
   Intake.spin(reverse);
@@ -261,12 +261,13 @@ void blue_wp_4rings()
   WallThingy.spinFor(715, degrees, false);
   chassis.drive_distance(-47);
   chassis.turn_to_angle(-98);
-  chassis.drive_distance(-34);
-  wait (200, msec);
-  chassis.drive_distance(-5);
-  ClampScoopRatchet.spinFor(300, degrees, true);
+  chassis.drive_distance(-30);
+  wait (50, msec);
+  chassis.drive_distance(-8);
+  ClampScoopRatchet.spinFor(310, degrees, true);
+  chassis.drive_distance(-4);
   wait (10, msec);
-  chassis.turn_to_angle(-187);
+  chassis.turn_to_angle(-173);
   Intake.spin(reverse);
   chassis.drive_distance(25);
   chassis.turn_to_angle(115);
@@ -274,12 +275,15 @@ void blue_wp_4rings()
   chassis.drive_distance(25);
   wait (200, msec);
   chassis.drive_distance(-10);
+  wait (400, msec);
   chassis.turn_to_angle(138);
-  chassis.drive_distance(18);
+  chassis.drive_distance(15);
+  wait (50, msec);
+  chassis.drive_distance(3);
   wait (700, msec);
+  WallThingy.spinFor(-715, degrees, false);
   chassis.drive_distance(-18);
   chassis.turn_to_angle(30);
-  WallThingy.spinFor(-715, degrees, false);
   chassis.drive_distance(33);
 }
 
@@ -478,7 +482,7 @@ void blueColor()
   
   while (1)
   {
-    if (hueColor > 150) 
+    if (hueColor < 20) 
     {
       Intake.stop();
       Intake.spinFor(reverse, 358, degrees);
@@ -500,6 +504,22 @@ void blueColor()
       }
     }
 
+    if (!clampMoving)
+    {
+      if (Controller1.ButtonLeft.pressing())
+      {
+        ClampScoopRatchet.spin(reverse);
+      }
+      else if (Controller1.ButtonRight.pressing())
+      {
+        ClampScoopRatchet.spin(forward);
+      }
+      else
+      {
+        ClampScoopRatchet.stop();
+      }
+    }
+
     if (Controller1.ButtonL2.pressing())
     {
       WallThingy.spin(reverse);
@@ -513,17 +533,14 @@ void blueColor()
       WallThingy.stop();
     }
 
-    if (Controller1.ButtonA.pressing())
+    if (Controller1.ButtonA.pressing() && !clampMoving)
     {
-      ClampScoopRatchet.spinFor(-300, degrees);
+      vex::thread clampThread(openClamp);
     }
-    else if (Controller1.ButtonB.pressing())
+
+    if (Controller1.ButtonB.pressing() && !clampMoving)
     {
-      ClampScoopRatchet.spinFor(300, degrees);
-    }
-    else
-    {
-      ClampScoopRatchet.stop();
+      vex::thread clampThread(closeClamp);
     }
 
     chassis.control_tank();
