@@ -5,17 +5,22 @@ class Drive;
 
 extern Drive chassis;
 
+// constants
 void default_constants();
+void odom_constants();
+void odom_test();
+void robot_auton_constants();
 
 // auton
 void blue_rush();
 void red_wp_3rings();
 void red_wp_4rings();
+void blue_wp_4rings();
+void red_rush();
+void blue_wp_3rings();
 void skills();
-void odom_test();
-void tank_odom_test();
-void holonomic_odom_test();
 
 // driver control
 void redColor();
 void blueColor();
+void noColor();

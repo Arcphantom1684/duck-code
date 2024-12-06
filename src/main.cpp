@@ -132,28 +132,44 @@ void pre_match() {
     switch(current_auton_selection)
     {
       case 0:
-        Brain.Screen.printAt(5, 140, "Auton 1");
+        Brain.Screen.printAt(5, 140, "Red WP | 4 Rings");
+        Brain.Screen.setFillColor(color::red);
+        Brain.Screen.drawRectangle(420, 272, 50, 272);
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Auton 2");
+        Brain.Screen.printAt(5, 140, "Blue WP | 4 Rings");
+        Brain.Screen.setFillColor(color::blue);
+        Brain.Screen.drawRectangle(420, 272, 50, 272);
         break;
       case 2:
-        Brain.Screen.printAt(5, 140, "Auton 3");
+        Brain.Screen.printAt(5, 140, "Red Rush");
+        Brain.Screen.setFillColor(color::red);
+        Brain.Screen.drawRectangle(420, 272, 50, 272);
         break;
       case 3:
-        Brain.Screen.printAt(5, 140, "Auton 4");
+        Brain.Screen.printAt(5, 140, "Blue Rush");
+        Brain.Screen.setFillColor(color::blue);
+        Brain.Screen.drawRectangle(420, 272, 50, 272);
         break;
       case 4:
-        Brain.Screen.printAt(5, 140, "Auton 5");
+        Brain.Screen.printAt(5, 140, "Red WP | 3 Rings");
+        Brain.Screen.setFillColor(color::red);
+        Brain.Screen.drawRectangle(420, 272, 50, 272);
         break;
       case 5:
-        Brain.Screen.printAt(5, 140, "Auton 6");
+        Brain.Screen.printAt(5, 140, "Blue WP | 4 Rings");
+        Brain.Screen.setFillColor(color::blue);
+        Brain.Screen.drawRectangle(420, 272, 50, 272);
         break;
       case 6:
-        Brain.Screen.printAt(5, 140, "Auton 7");
+        Brain.Screen.printAt(5, 140, "Skills Driver");
+        Brain.Screen.setFillColor(color::white);
+        Brain.Screen.drawRectangle(420, 272, 50, 272);
         break;
       case 7:
-        Brain.Screen.printAt(5, 140, "Auton 8");
+        Brain.Screen.printAt(5, 140, "Skills Auton");
+        Brain.Screen.setFillColor(color::white);
+        Brain.Screen.drawRectangle(420, 272, 50, 272);
         break;
     }
     if(Brain.Screen.pressing()){
@@ -163,7 +179,7 @@ void pre_match() {
       current_auton_selection = 0;
     }
 
-    Brain.Screen.printAt(200, 120, "Selected Color:");
+    /*Brain.Screen.printAt(200, 120, "Selected Color:");
     switch(current_driver_selection)
     {
       case 0:
@@ -173,7 +189,7 @@ void pre_match() {
         Brain.Screen.printAt(200, 140, "Blue");
         break;
     }
-    if (COLOR.hue() < 15)
+    /*if (COLOR.hue() < 15)
     {
       current_driver_selection = 0;
     }
@@ -181,7 +197,7 @@ void pre_match() {
     {
       current_driver_selection = 1;
     }
-    /*if(Brain.Screen.pressing()){
+    if(Brain.Screen.pressing()){
       while(Brain.Screen.pressing()) {}
       current_driver_selection ++;
     } else if (current_driver_selection == 2){
@@ -206,25 +222,32 @@ void autonomous(void)
       red_wp_4rings();
       break;
     case 1:         
-      blue_rush();
+      blue_wp_4rings();
+      blueColor();
       break;
     case 2:
-      blue_rush();
+      red_rush();
+      redColor();
       break;
     case 3:
-      red_wp_3rings();
+      blue_rush();
+      blueColor();
       break;
     case 4:
-      red_wp_4rings();
+      red_wp_3rings();
+      redColor();
       break;
     case 5:
-      odom_test();
+      blue_wp_3rings();
+      blueColor();
       break;
     case 6:
-      tank_odom_test();
+      skills();
+      noColor();
       break;
     case 7:
-      holonomic_odom_test();
+      skills();
+      noColor();
       break;
  }
 }
