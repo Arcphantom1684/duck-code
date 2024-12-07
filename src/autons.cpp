@@ -1,10 +1,35 @@
 #include "vex.h"
 
 int Acounter = 0;
-bool clampMoving;
+bool clampMoving = false;
+bool intakeMoving = false;
+bool ladyBrownMoving = false;
 
 
 // Methods and buttons
+
+void set_position_of_lady_brown()
+{
+  WallThingy.setVelocity(100, percent);
+  ladyBrownMoving = true;
+  WallThingy.spinFor(-200, degrees);
+  ladyBrownMoving = false;
+}
+
+void red_color_throw()
+{
+  intakeMoving = true;
+  Intake.spinFor(reverse, 358, degrees);
+  intakeMoving = false;
+}
+
+void blue_color_throw()
+{
+  intakeMoving = true;
+  Intake.spinFor(reverse, 358, degrees);
+  intakeMoving = false;
+}
+
 void openClamp()
 {
   clampMoving = true;
@@ -297,10 +322,12 @@ void skills()
   WallThingy.spinFor(715, degrees, false);
   chassis.drive_distance(-13);
   chassis.turn_to_angle(-88);
-  chassis.drive_distance(-30);
-  ClampScoopRatchet.spinFor(300, degrees, true);
+  chassis.drive_distance(-25);
+  wait (50, msec);
+  chassis.drive_distance(-5);
+  ClampScoopRatchet.spinFor(310, degrees, true);
   chassis.drive_distance(-17);
-  chassis.turn_to_angle(180);
+  chassis.turn_to_angle(183);
   Intake.spin(reverse);
   chassis.drive_distance(43);
   wait (1000, msec);
@@ -318,15 +345,17 @@ void skills()
   Intake.spinFor(500, degrees, false);
   ClampScoopRatchet.spinFor(-300, degrees, true);
   chassis.drive_distance(20);
-  ClampScoopRatchet.spinFor(300, degrees, false);
+  ClampScoopRatchet.spinFor(310, degrees, false);
   chassis.turn_to_angle(180);
-  chassis.drive_distance(-15);
+  chassis.drive_distance(-17);
   chassis.set_coordinates(0, 0, 0);
   chassis.drive_distance(26);
   chassis.turn_to_angle(-88);
   ClampScoopRatchet.spinFor(-300, degrees, false);
-  chassis.drive_distance(-99);
-  ClampScoopRatchet.spinFor(300, degrees, true);
+  chassis.drive_distance(-93);
+  wait (50, msec);
+  chassis.drive_distance(-6);
+  ClampScoopRatchet.spinFor(310, degrees, true);
   chassis.turn_to_angle(90);
   Intake.spin(reverse);
   chassis.drive_distance(50);
@@ -373,7 +402,7 @@ void redColor()
   Right3.setVelocity(100, percent);
   Intake.setVelocity(100, percent);
   ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(70, percent);
+  WallThingy.setVelocity(100, percent);
 
   COLOR.setLight(ledState::on);
   COLOR.brightness(100);
@@ -381,23 +410,21 @@ void redColor()
 
   while (1)
   {
-    if (hueColor > 200) 
+    if (hueColor > 200 && !intakeMoving) 
     {
-      Intake.stop();
-      Intake.spinFor(reverse, 358, degrees);
-      stopFor(Intake, 1);
+      vex::thread intakeThread(red_color_throw);
     }
     else
     {
-      if (Controller1.ButtonR2.pressing())
+      if (Controller1.ButtonR2.pressing() && !intakeMoving)
       {
         Intake.spin(reverse);
       }
-      else if (Controller1.ButtonR1.pressing())
+      else if (Controller1.ButtonR1.pressing() && !intakeMoving)
       {
         Intake.spin(forward);
       }
-      else 
+      else
       {
         Intake.stop();
       }
@@ -419,11 +446,11 @@ void redColor()
       }
     }
 
-    if (Controller1.ButtonL2.pressing())
+    if (Controller1.ButtonL2.pressing() && !ladyBrownMoving)
     {
       WallThingy.spin(reverse);
     }
-    else if (Controller1.ButtonL1.pressing())
+    else if (Controller1.ButtonL1.pressing() && !ladyBrownMoving)
     {
       WallThingy.spin(forward);
     }
@@ -435,12 +462,25 @@ void redColor()
     if (Controller1.ButtonA.pressing() && !clampMoving)
     {
       vex::thread clampThread(openClamp);
+      vex::this_thread::sleep_until(Controller1.ButtonA.pressing());
     }
 
     if (Controller1.ButtonB.pressing() && !clampMoving)
     {
       vex::thread clampThread(closeClamp);
-    }  
+      vex::this_thread::sleep_until(Controller1.ButtonB.pressing());
+    }
+
+    if (Controller1.ButtonDown.pressing() && !ladyBrownMoving)
+    {
+      //vex::thread wallThread(set_position_of_lady_brown);
+      WallThingy.spinFor(-170, degrees);
+    }
+
+    if (Controller1.ButtonUp.pressing())
+    {
+      ClampScoopRatchet.stop();
+    }
 
     /*if (Controller1.ButtonA.pressing())
     {
@@ -482,11 +522,9 @@ void blueColor()
   
   while (1)
   {
-    if (hueColor < 20) 
+    if (hueColor < 20 && !intakeMoving) 
     {
-      Intake.stop();
-      Intake.spinFor(reverse, 358, degrees);
-      stopFor(Intake, 1);
+      vex::thread intakeThread(blue_color_throw);
     }
     else
     {
@@ -563,7 +601,7 @@ void noColor()
   Right3.setVelocity(100, percent);
   Intake.setVelocity(100, percent);
   ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(70, percent);
+  WallThingy.setVelocity(100, percent);
 
   COLOR.setLight(ledState::on);
   COLOR.brightness(100);
