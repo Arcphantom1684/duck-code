@@ -7,7 +7,6 @@ bool ladyBrownMoving = false;
 
 
 // Methods and buttons
-
 void set_position_of_lady_brown()
 {
   WallThingy.setVelocity(100, percent);
@@ -34,6 +33,7 @@ void openClamp()
 {
   clampMoving = true;
   ClampScoopRatchet.spinFor(-300, degrees);
+  vex::this_thread::sleep_for(100);
   clampMoving = false;
 }
 
@@ -41,6 +41,7 @@ void closeClamp()
 {
   clampMoving = true;
   ClampScoopRatchet.spinFor(300, degrees);
+  vex::this_thread::sleep_for(100);
   clampMoving = false;
 }
 
@@ -65,7 +66,6 @@ void AbuttonRotater()
     Acounter++;
   }
 }
-
 
 
 // Constants
@@ -429,7 +429,7 @@ void redColor()
   {
     if (hueColor > 200 && !intakeMoving) 
     {
-      //vex::thread intakeThread(red_color_throw);
+      vex::thread intakeThread(red_color_throw);
     }
     else
     {
@@ -479,18 +479,15 @@ void redColor()
     if (Controller1.ButtonA.pressing() && !clampMoving)
     {
       vex::thread clampThread(openClamp);
-      vex::this_thread::sleep_until(Controller1.ButtonA.pressing());
     }
 
     if (Controller1.ButtonB.pressing() && !clampMoving)
     {
       vex::thread clampThread(closeClamp);
-      vex::this_thread::sleep_until(Controller1.ButtonB.pressing());
     }
 
     if (Controller1.ButtonDown.pressing() && !ladyBrownMoving)
     {
-      //vex::thread wallThread(set_position_of_lady_brown);
       WallThingy.spinFor(-170, degrees);
     }
 
@@ -498,19 +495,6 @@ void redColor()
     {
       ClampScoopRatchet.stop();
     }
-
-    /*if (Controller1.ButtonA.pressing())
-    {
-      ClampScoopRatchet.spinFor(-300, degrees, false);
-    }
-    else if (Controller1.ButtonB.pressing())
-    {
-      ClampScoopRatchet.spinFor(300, degrees, false);
-    }
-    else
-    {
-      ClampScoopRatchet.stop();
-    }*/
 
     chassis.control_tank();
     wait(20, msec); // Sleep the task for a short amount of time to
@@ -598,6 +582,16 @@ void blueColor()
       vex::thread clampThread(closeClamp);
     }
 
+    if (Controller1.ButtonDown.pressing() && !ladyBrownMoving)
+    {
+      WallThingy.spinFor(-170, degrees);
+    }
+
+    if (Controller1.ButtonUp.pressing())
+    {
+      ClampScoopRatchet.stop();
+    }
+
     chassis.control_tank();
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
@@ -677,7 +671,17 @@ void noColor()
     if (Controller1.ButtonB.pressing() && !clampMoving)
     {
       vex::thread clampThread(closeClamp);
-    }  
+    } 
+
+    if (Controller1.ButtonDown.pressing() && !ladyBrownMoving)
+    {
+      WallThingy.spinFor(-170, degrees);
+    }
+
+    if (Controller1.ButtonUp.pressing())
+    {
+      ClampScoopRatchet.stop();
+    } 
 
     /*if (Controller1.ButtonA.pressing())
     {

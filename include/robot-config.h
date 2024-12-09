@@ -2,8 +2,7 @@ using namespace vex;
 
 extern brain Brain;
 
-//To set up a motor called LeftFront here, you'd use
-//extern motor LeftFront;
+// Motors
 extern motor Left1;
 extern motor Left2;
 extern motor Left3;
@@ -15,7 +14,6 @@ extern motor WallThingy;
 extern controller Controller1;
 extern motor Intake;
 extern optical COLOR;
-//Add your devices below, and don't forget to do the same in robot-config.cpp:
 
 
 
