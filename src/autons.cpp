@@ -683,19 +683,6 @@ void noColor()
       ClampScoopRatchet.stop();
     } 
 
-    /*if (Controller1.ButtonA.pressing())
-    {
-      ClampScoopRatchet.spinFor(-300, degrees, false);
-    }
-    else if (Controller1.ButtonB.pressing())
-    {
-      ClampScoopRatchet.spinFor(300, degrees, false);
-    }
-    else
-    {
-      ClampScoopRatchet.stop();
-    }*/
-
     chassis.control_tank();
     wait(20, msec); // Sleep the task for a short amount of time to
                     // prevent wasted resources.
