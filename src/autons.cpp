@@ -11,7 +11,7 @@ void set_position_of_lady_brown()
 {
   WallThingy.setVelocity(100, percent);
   ladyBrownMoving = true;
-  WallThingy.spinFor(-200, degrees);
+  WallThingy.spinFor(-170, degrees);
   ladyBrownMoving = false;
 }
 
