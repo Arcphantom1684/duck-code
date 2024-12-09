@@ -132,13 +132,13 @@ void pre_match() {
     switch(current_auton_selection)
     {
       case 0:
-        Brain.Screen.printAt(5, 140, "Red WP | 4 Rings");
+        Brain.Screen.printAt(5, 140, "Blue WP | 3 Rings");
         Brain.Screen.setFillColor(color::red);
         Brain.Screen.drawRectangle(200, 200, 50, 50);
         Brain.Screen.setFillColor(color::red);
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Blue WP | 4 Rings");
+        Brain.Screen.printAt(5, 140, "Blue WP | 3 Rings");
         Brain.Screen.setFillColor(color::blue);
         Brain.Screen.drawRectangle(200, 200, 50, 50);
         Brain.Screen.setFillColor(color::blue);
@@ -222,12 +222,12 @@ void pre_match() {
  * autons.cpp and declared in autons.h.
  */
 
-void autonomous(void) 
+void autonomous(void)
 {
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      red_wp_4rings();
+      blue_wp_3rings();
       redColor();
       break;
     case 1:         

@@ -168,24 +168,30 @@ void red_wp_3rings()
   robot_auton_constants();
   ClampScoopRatchet.spinFor(-300, degrees, false);
   WallThingy.spinFor(-715, degrees, true);
-  wait (500, msec);
-  WallThingy.spinFor(720, degrees, false);
-  chassis.drive_distance(-46);
-  chassis.turn_to_angle(97);
-  chassis.drive_distance(-39);
-  ClampScoopRatchet.spinFor(300, degrees, true);
+  wait (100, msec);
+  WallThingy.spinFor(715, degrees, false);
+  chassis.drive_distance(-47);
+  chassis.turn_to_angle(98);
+  chassis.drive_distance(-34);
+  wait (50, msec);
+  chassis.drive_distance(-8);
+  ClampScoopRatchet.spinFor(310, degrees, true);
   wait (10, msec);
-  chassis.turn_to_angle(187);
+  chassis.turn_to_angle(183);
   Intake.spin(reverse);
-  chassis.drive_distance(25);
+  chassis.drive_distance(27);
   chassis.turn_to_angle(-115);
-  wait (700, msec);
+  wait (500, msec);
   chassis.drive_distance(25);
-  wait (200, msec);
+  //wait (200, msec);
   chassis.drive_distance(-10);
+  //chassis.turn_to_angle(-138);
+  //chassis.drive_distance(18);
+  wait (700, msec);
+  //chassis.drive_distance(-18);
   chassis.turn_to_angle(-30);
   WallThingy.spinFor(-715, degrees, false);
-  chassis.drive_distance(33);
+  chassis.drive_distance(30);
 }
 
 void red_wp_4rings()
@@ -257,23 +263,34 @@ void blue_wp_3rings()
   robot_auton_constants();
   ClampScoopRatchet.spinFor(-300, degrees, false);
   WallThingy.spinFor(-715, degrees, true);
-  wait (500, msec);
-  WallThingy.spinFor(720, degrees, false);
-  chassis.drive_distance(-46);
-  chassis.turn_to_angle(97);
-  chassis.drive_distance(-39);
+  wait (100, msec);
+  WallThingy.spinFor(715, degrees, false);
+  chassis.drive_distance(-47);
+  chassis.turn_to_angle(-98);
+  chassis.drive_distance(-30);
+  wait (50, msec);
+  chassis.drive_distance(-8);
   ClampScoopRatchet.spinFor(310, degrees, true);
+  chassis.drive_distance(-4);
   wait (10, msec);
-  chassis.turn_to_angle(187);
+  chassis.turn_to_angle(-173);
   Intake.spin(reverse);
   chassis.drive_distance(25);
-  chassis.turn_to_angle(-115);
-  wait (700, msec);
+  chassis.turn_to_angle(115);
+  wait (500, msec);
   chassis.drive_distance(25);
+  chassis.drive_distance(2);
   wait (200, msec);
   chassis.drive_distance(-10);
-  chassis.turn_to_angle(-30);
+  wait (400, msec);
+  //chassis.turn_to_angle(138);
+  //chassis.drive_distance(15);
+  //wait (50, msec);
+  //chassis.drive_distance(3);
+  wait (700, msec);
   WallThingy.spinFor(-715, degrees, false);
+  //chassis.drive_distance(-18);
+  chassis.turn_to_angle(30);
   chassis.drive_distance(33);
 }
 
@@ -412,7 +429,7 @@ void redColor()
   {
     if (hueColor > 200 && !intakeMoving) 
     {
-      vex::thread intakeThread(red_color_throw);
+      //vex::thread intakeThread(red_color_throw);
     }
     else
     {
