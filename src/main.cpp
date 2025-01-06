@@ -44,13 +44,13 @@ ZERO_TRACKER_NO_ODOM,
 //You will input whatever motor names you chose when you configured your robot using the sidebar configurer, they don't have to be "Motor1" and "Motor2".
 
 //Left Motors:
-motor_group(Left1, Left2, Left3),
-
-//Right Motors:
 motor_group(Right1, Right2, Right3),
 
+//Right Motors:
+motor_group(Left1, Left2, Left3),
+
 //Specify the PORT NUMBER of your inertial sensor, in PORT format (i.e. "PORT1", not simply "1"):
-PORT18,
+PORT19,
 
 //Input your wheel diameter. (4" omnis are actually closer to 4.125"):
 3.25,
@@ -227,35 +227,28 @@ void autonomous(void)
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      blue_wp_3rings();
-      redColor();
+      actual_solo_wp();
+      noColor();
       break;
     case 1:         
-      blue_wp_4rings();
-      blueColor();
+      noColor();
       break;
     case 2:
-      red_rush();
-      redColor();
+      noColor();
       break;
     case 3:
-      blue_rush();
-      blueColor();
+      noColor();
       break;
     case 4:
-      red_wp_3rings();
-      redColor();
+      noColor();
       break;
     case 5:
-      blue_wp_3rings();
-      blueColor();
+      noColor();
       break;
     case 6:
-      skills();
       noColor();
       break;
     case 7:
-      skills();
       noColor();
       break;
  }
@@ -277,10 +270,10 @@ void usercontrol(void)
   switch(current_driver_selection)
   {
     case 0:
-      redColor();
+      noColor();
       break;
     case 1:
-      blueColor();
+      noColor();
       break;
   }
 }

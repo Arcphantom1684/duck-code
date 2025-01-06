@@ -9,10 +9,12 @@ extern motor Left3;
 extern motor Right1;
 extern motor Right2;
 extern motor Right3;
-extern motor ClampScoopRatchet;
-extern motor WallThingy;
+extern vex::digital_out Clamp;
+extern vex::digital_out Scoop;
+extern motor WallMce;
 extern controller Controller1;
-extern motor Intake;
+extern motor IntakeB;
+extern motor IntakeT;
 extern optical COLOR;
 
 

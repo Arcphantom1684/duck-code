@@ -5,68 +5,11 @@ bool clampMoving = false;
 bool intakeMoving = false;
 bool ladyBrownMoving = false;
 
-
-// Methods and buttons
-void set_position_of_lady_brown()
+// Methods
+void CloseClamp()
 {
-  WallThingy.setVelocity(100, percent);
-  ladyBrownMoving = true;
-  WallThingy.spinFor(-170, degrees);
-  ladyBrownMoving = false;
+  Clamp.set(true);
 }
-
-void red_color_throw()
-{
-  intakeMoving = true;
-  Intake.spinFor(reverse, 358, degrees);
-  intakeMoving = false;
-}
-
-void blue_color_throw()
-{
-  intakeMoving = true;
-  Intake.spinFor(reverse, 358, degrees);
-  intakeMoving = false;
-}
-
-void openClamp()
-{
-  clampMoving = true;
-  ClampScoopRatchet.spinFor(-300, degrees);
-  vex::this_thread::sleep_for(100);
-  clampMoving = false;
-}
-
-void closeClamp()
-{
-  clampMoving = true;
-  ClampScoopRatchet.spinFor(300, degrees);
-  vex::this_thread::sleep_for(100);
-  clampMoving = false;
-}
-
-void stopFor(motor a, int b)
-{
-  a.spinFor(0.1, degrees);
-  a.stop();
-  this_thread::sleep_for(b);
-  a.spinFor(0.1, degrees);
-}
-
-void AbuttonRotater()
-{
-  if (Acounter % 2 == 0)
-  {
-    ClampScoopRatchet.spinFor(-300, degrees);
-    Acounter++;
-  }
-  else if (Acounter % 2 != 0)
-  {
-    ClampScoopRatchet.spinFor(300, degrees);
-    Acounter++;
-  }
-}
-
 
 // Constants
 void odom_test()
@@ -93,9 +36,9 @@ void default_constants()
   chassis.set_swing_constants(12, .3, .001, 2, 15);
 
   // Each exit condition set is in the form of (settle_error, settle_time, timeout).
-  chassis.set_drive_exit_conditions(1.5, 300, 5000);
-  chassis.set_turn_exit_conditions(1, 300, 3000);
-  chassis.set_swing_exit_conditions(1, 300, 3000);
+  chassis.set_drive_exit_conditions(0.75, 150, 2500);
+  chassis.set_turn_exit_conditions(1.5, 150, 1500);
+  chassis.set_swing_exit_conditions(1.5, 150, 1500);
 }
 
 void odom_constants()
@@ -111,6 +54,7 @@ void odom_constants()
 void robot_auton_constants()
 {
   odom_constants();
+  default_constants();
   chassis.set_coordinates(0, 0, 0);
   COLOR.setLight(ledState::on);
   COLOR.brightness(100);
@@ -120,571 +64,164 @@ void robot_auton_constants()
   Right1.setVelocity(100, percent);
   Right2.setVelocity(100, percent);
   Right3.setVelocity(100, percent);
-  Intake.setVelocity(101, percent);
-  ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(100, percent);
+  IntakeT.setVelocity(101, percent);
+  IntakeB.setVelocity(101, percent);
+  WallMce.setVelocity(100, percent);
 }
 
 
 
 
-//Autonomous
-void blue_rush()
+// Auton
+void red_tower_rush_bad()
 {
   robot_auton_constants();
-  ClampScoopRatchet.spinFor(-300, degrees, false);
-  chassis.drive_distance(-73);
-  chassis.turn_to_angle(-30);
-  chassis.drive_distance(-11);
-  ClampScoopRatchet.spinFor(300, degrees, true);
-  Intake.spinFor(reverse, 700, degrees);
-  Intake.spin(reverse);
-  chassis.turn_to_angle(54);
-  chassis.drive_distance(30);
-  while ( 1 )
-  {
-    if (COLOR.hue() < 20)
-    {
-      Intake.stop();
-      break;
-    }
-  }
-  chassis.turn_to_angle(180);
-  chassis.drive_distance(-15);
-  ClampScoopRatchet.spinFor(-300, degrees);
-  chassis.drive_distance(9);
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(-34);
-  ClampScoopRatchet.spinFor(300, degrees, true);
-  Intake.spinFor(reverse, 500, degrees);
-  chassis.turn_to_angle(65);
-  WallThingy.spinFor(reverse, 300, degrees, false);
-  chassis.drive_distance(-35);
-}
-
-
-void red_wp_3rings()
-{
-  robot_auton_constants();
-  ClampScoopRatchet.spinFor(-300, degrees, false);
-  WallThingy.spinFor(-715, degrees, true);
-  wait (100, msec);
-  WallThingy.spinFor(715, degrees, false);
-  chassis.drive_distance(-47);
-  chassis.turn_to_angle(98);
-  chassis.drive_distance(-34);
-  wait (50, msec);
-  chassis.drive_distance(-8);
-  ClampScoopRatchet.spinFor(310, degrees, true);
-  wait (10, msec);
-  chassis.turn_to_angle(183);
-  Intake.spin(reverse);
-  chassis.drive_distance(27);
-  chassis.turn_to_angle(-115);
-  wait (500, msec);
-  chassis.drive_distance(25);
-  //wait (200, msec);
-  chassis.drive_distance(-10);
-  //chassis.turn_to_angle(-138);
-  //chassis.drive_distance(18);
-  wait (700, msec);
-  //chassis.drive_distance(-18);
-  chassis.turn_to_angle(-30);
-  WallThingy.spinFor(-715, degrees, false);
-  chassis.drive_distance(30);
-}
-
-void red_wp_4rings()
-{
-  robot_auton_constants();
-  ClampScoopRatchet.spinFor(-300, degrees, false);
-  WallThingy.spinFor(-715, degrees, true);
-  wait (100, msec);
-  WallThingy.spinFor(715, degrees, false);
-  chassis.drive_distance(-47);
-  chassis.turn_to_angle(98);
-  chassis.drive_distance(-34);
-  wait (50, msec);
-  chassis.drive_distance(-8);
-  ClampScoopRatchet.spinFor(310, degrees, true);
-  wait (10, msec);
-  chassis.turn_to_angle(187);
-  Intake.spin(reverse);
-  chassis.drive_distance(25);
-  chassis.turn_to_angle(-115);
-  wait (500, msec);
-  chassis.drive_distance(25);
-  wait (200, msec);
-  chassis.drive_distance(-10);
-  chassis.turn_to_angle(-138);
-  chassis.drive_distance(18);
-  wait (700, msec);
-  chassis.drive_distance(-18);
-  chassis.turn_to_angle(-30);
-  WallThingy.spinFor(-715, degrees, false);
-  chassis.drive_distance(33);
-}
-
-void red_rush()
-{
-  robot_auton_constants();
-  ClampScoopRatchet.spinFor(-300, degrees, false);
-  chassis.drive_distance(-73);
-  chassis.turn_to_angle(30);
-  chassis.drive_distance(-11);
-  ClampScoopRatchet.spinFor(310, degrees, true);
-  Intake.spinFor(reverse, 700, degrees);
-  Intake.spin(reverse);
-  chassis.turn_to_angle(-60);
-  chassis.drive_distance(30);
-  while ( 1 )
-  {
-    if (COLOR.hue() > 200)
-    {
-      Intake.stop();
-      break;
-    }
-  }
-  chassis.turn_to_angle(-180);
-  chassis.drive_distance(-15);
-  ClampScoopRatchet.spinFor(-300, degrees);
-  chassis.drive_distance(8);
-  chassis.turn_to_angle(-89);
-  chassis.drive_distance(-34);
-  ClampScoopRatchet.spinFor(310, degrees, true);
-  Intake.spinFor(reverse, 500, degrees);
-  chassis.turn_to_angle(-65);
-  WallThingy.spinFor(reverse, 300, degrees, false);
-  chassis.drive_distance(-35);
-}
-
-void blue_wp_3rings()
-{
-  robot_auton_constants();
-  ClampScoopRatchet.spinFor(-300, degrees, false);
-  WallThingy.spinFor(-715, degrees, true);
-  wait (100, msec);
-  WallThingy.spinFor(715, degrees, false);
-  chassis.drive_distance(-47);
-  chassis.turn_to_angle(-98);
-  chassis.drive_distance(-30);
-  wait (50, msec);
-  chassis.drive_distance(-8);
-  ClampScoopRatchet.spinFor(310, degrees, true);
-  chassis.drive_distance(-4);
-  wait (10, msec);
-  chassis.turn_to_angle(-173);
-  Intake.spin(reverse);
-  chassis.drive_distance(25);
-  chassis.turn_to_angle(115);
-  wait (500, msec);
-  chassis.drive_distance(25);
-  chassis.drive_distance(2);
-  wait (200, msec);
-  chassis.drive_distance(-10);
+  chassis.drive_distance(63);
+  Scoop.set(true);
   wait (400, msec);
-  //chassis.turn_to_angle(138);
-  //chassis.drive_distance(15);
-  //wait (50, msec);
-  //chassis.drive_distance(3);
-  wait (700, msec);
-  WallThingy.spinFor(-715, degrees, false);
-  //chassis.drive_distance(-18);
-  chassis.turn_to_angle(30);
-  chassis.drive_distance(33);
-}
-
-void blue_wp_4rings()
-{
-  robot_auton_constants();
-  ClampScoopRatchet.spinFor(-300, degrees, false);
-  WallThingy.spinFor(-715, degrees, true);
-  wait (100, msec);
-  WallThingy.spinFor(715, degrees, false);
-  chassis.drive_distance(-47);
-  chassis.turn_to_angle(-98);
+  chassis.drive_distance(-17);
+  Scoop.set(false);
+  WallMce.spinFor(forward, 300, degrees, false);
   chassis.drive_distance(-30);
-  wait (50, msec);
-  chassis.drive_distance(-8);
-  ClampScoopRatchet.spinFor(310, degrees, true);
-  chassis.drive_distance(-4);
-  wait (10, msec);
-  chassis.turn_to_angle(-173);
-  Intake.spin(reverse);
-  chassis.drive_distance(25);
-  chassis.turn_to_angle(115);
-  wait (500, msec);
-  chassis.drive_distance(25);
-  wait (200, msec);
-  chassis.drive_distance(-10);
-  wait (400, msec);
-  chassis.turn_to_angle(138);
-  chassis.drive_distance(15);
-  wait (50, msec);
-  chassis.drive_distance(3);
-  wait (700, msec);
-  WallThingy.spinFor(-715, degrees, false);
-  chassis.drive_distance(-18);
-  chassis.turn_to_angle(30);
-  chassis.drive_distance(33);
-}
-
-void skills()
-{
-  robot_auton_constants();
-  ClampScoopRatchet.spinFor(-300, degrees, false);
-  chassis.drive_distance(-5);
-  WallThingy.spinFor(-715, degrees, true);
-  wait (500, msec);
-  WallThingy.spinFor(715, degrees, false);
-  chassis.drive_distance(-13);
-  chassis.turn_to_angle(-88);
-  chassis.drive_distance(-25);
-  wait (50, msec);
-  chassis.drive_distance(-5);
-  ClampScoopRatchet.spinFor(310, degrees, true);
-  chassis.drive_distance(-17);
-  chassis.turn_to_angle(183);
-  Intake.spin(reverse);
-  chassis.drive_distance(43);
-  wait (1000, msec);
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(45);
-  wait (1000, msec);
-  chassis.turn_to_angle(0);
-  chassis.drive_distance(35);
-  wait (1500, msec);
-  chassis.drive_distance(22);
-  chassis.turn_to_angle(-100);
-  wait (500, msec);
+  chassis.turn_to_angle(130);
   chassis.drive_distance(-15);
-  Intake.stop();
-  Intake.spinFor(500, degrees, false);
-  ClampScoopRatchet.spinFor(-300, degrees, true);
-  chassis.drive_distance(20);
-  ClampScoopRatchet.spinFor(310, degrees, false);
-  chassis.turn_to_angle(180);
-  chassis.drive_distance(-17);
+  chassis.drive_distance(-5);
+  Clamp.set(true);
+  wait(300, msec);
+  IntakeT.spinFor(forward, 450, degrees, true);
+  chassis.left_swing_to_angle(70);
+  Clamp.set(false);
+  IntakeB.spin(forward);
+  wait (100, msec);
   chassis.set_coordinates(0, 0, 0);
-  chassis.drive_distance(26);
-  chassis.turn_to_angle(-88);
-  ClampScoopRatchet.spinFor(-300, degrees, false);
-  chassis.drive_distance(-93);
+  chassis.drive_distance(40);
   wait (50, msec);
-  chassis.drive_distance(-6);
-  ClampScoopRatchet.spinFor(310, degrees, true);
-  chassis.turn_to_angle(90);
-  Intake.spin(reverse);
-  chassis.drive_distance(50);
-  wait (1000, msec);
-  chassis.drive_distance(20);
-  wait (1000, msec);
-  chassis.turn_to_angle(-30);
   chassis.drive_distance(-10);
-  Intake.stop();
-  Intake.spinFor(500, degrees, false);
-  ClampScoopRatchet.spinFor(-300, degrees, true);
-  chassis.drive_distance(10, false);
-  ClampScoopRatchet.spinFor(300, degrees, false);
-  Intake.spin(reverse);
-  chassis.drive_distance(30);
-  while ( 1 )
-  {
-    if (COLOR.hue() < 20)
-    {
-      Intake.stop();
-      break;
-    }
-  }
-  chassis.turn_to_angle(-90);
+  chassis.turn_to_angle(110);
   chassis.drive_distance(-20);
+  chassis.drive_distance(-5);
+  Clamp.set(true);
+  IntakeT.spin(forward);
+  wait (700, msec);
+  WallMce.spinFor(forward, 150, degrees, false);
+  chassis.turn_to_angle(190);
+  chassis.drive_distance(40);
 }
 
+void red_ring_rush()
+{
+  robot_auton_constants();
+  chassis.turn_to_angle(-5);
+  chassis.drive_distance(17);
+  WallMce.spinFor(forward, 550, degrees, true);
+  wait(20, msec);
+  chassis.drive_distance(-17);
+  WallMce.spinFor(reverse, 300, degrees, false);
+  chassis.turn_to_angle(1);
+  chassis.drive_distance(-25);
+  chassis.drive_distance(-7);
+  chassis.drive_distance(-4);
+  Clamp.set(true);
+  wait(250, msec);
+  IntakeB.spin(forward);
+  IntakeT.spin(forward);
+  chassis.turn_to_angle(-195);
+  wait(20, msec);
+  chassis.drive_distance(43);
+  wait(100, msec);
+  chassis.right_swing_to_angle(-244);
+  chassis.drive_distance(28);
+  wait(200, msec);
+  chassis.drive_distance(-10);
+  chassis.turn_to_angle(-230);
+  chassis.drive_distance(-40);
+  chassis.turn_to_angle(-270);
+  chassis.drive_distance(22);
+  wait(100, msec);
+  chassis.turn_to_angle(-90);
+  chassis.drive_distance(40);
+}
 
-
+void actual_solo_wp()
+{
+  robot_auton_constants();
+  chassis.turn_to_angle(-5);
+  chassis.drive_distance(17);
+  WallMce.spinFor(forward, 550, degrees, true);
+  wait(20, msec);
+  chassis.drive_distance(-14);
+  WallMce.spinFor(reverse, 300, degrees, false);
+  chassis.turn_to_angle(110);
+  IntakeB.spin(forward);
+  chassis.drive_distance(33);
+  wait(200, msec);
+  chassis.drive_distance(-41);
+  chassis.turn_to_angle(-4);
+  chassis.drive_distance(-35);
+  chassis.drive_distance(-7);
+  Clamp.set(true);
+  wait(250, msec);
+  IntakeT.spin(forward);
+  chassis.turn_to_angle(110);
+}
 
 
 // Driver Control
-void redColor()
-{
-  ClampScoopRatchet.setPosition(0, degrees);
-  WallThingy.setStopping(vex::hold);
-  ClampScoopRatchet.setStopping(vex::hold);
-  // Changing the velocity of the motors and sides
-  Left1.setVelocity(100, percent);
-  Left2.setVelocity(100, percent);
-  Left3.setVelocity(100, percent);
-  Right1.setVelocity(100, percent);
-  Right2.setVelocity(100, percent);
-  Right3.setVelocity(100, percent);
-  Intake.setVelocity(100, percent);
-  ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(100, percent);
-
-  COLOR.setLight(ledState::on);
-  COLOR.brightness(100);
-  int hueColor = COLOR.hue();
-
-  while (1)
-  {
-    if (hueColor > 200 && !intakeMoving) 
-    {
-      vex::thread intakeThread(red_color_throw);
-    }
-    else
-    {
-      if (Controller1.ButtonR2.pressing() && !intakeMoving)
-      {
-        Intake.spin(reverse);
-      }
-      else if (Controller1.ButtonR1.pressing() && !intakeMoving)
-      {
-        Intake.spin(forward);
-      }
-      else
-      {
-        Intake.stop();
-      }
-    }
-
-    if (!clampMoving)
-    {
-      if (Controller1.ButtonLeft.pressing())
-      {
-        ClampScoopRatchet.spin(reverse);
-      }
-      else if (Controller1.ButtonRight.pressing())
-      {
-        ClampScoopRatchet.spin(forward);
-      }
-      else
-      {
-        ClampScoopRatchet.stop();
-      }
-    }
-
-    if (Controller1.ButtonL2.pressing() && !ladyBrownMoving)
-    {
-      WallThingy.spin(reverse);
-    }
-    else if (Controller1.ButtonL1.pressing() && !ladyBrownMoving)
-    {
-      WallThingy.spin(forward);
-    }
-    else
-    {
-      WallThingy.stop();
-    }
-
-    if (Controller1.ButtonA.pressing() && !clampMoving)
-    {
-      vex::thread clampThread(openClamp);
-    }
-
-    if (Controller1.ButtonB.pressing() && !clampMoving)
-    {
-      vex::thread clampThread(closeClamp);
-    }
-
-    if (Controller1.ButtonDown.pressing() && !ladyBrownMoving)
-    {
-      WallThingy.spinFor(-170, degrees);
-    }
-
-    if (Controller1.ButtonUp.pressing())
-    {
-      ClampScoopRatchet.stop();
-    }
-
-    chassis.control_tank();
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
-  }
-}
-
-void blueColor()
-{
-  WallThingy.setStopping(vex::hold);
-  ClampScoopRatchet.setStopping(vex::hold);
-  // Changing the velocity of the motors and sides
-  Left1.setVelocity(100, percent);
-  Left2.setVelocity(100, percent);
-  Left3.setVelocity(100, percent);
-  Right1.setVelocity(100, percent);
-  Right2.setVelocity(100, percent);
-  Right3.setVelocity(100, percent);
-  Intake.setVelocity(100, percent);
-  ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(100, percent);
-
-  COLOR.setLight(ledState::on);
-  COLOR.brightness(100);
-  int hueColor = COLOR.hue();
-  
-  while (1)
-  {
-    if (hueColor < 20 && !intakeMoving) 
-    {
-      vex::thread intakeThread(blue_color_throw);
-    }
-    else
-    {
-      if (Controller1.ButtonR2.pressing())
-      {
-        Intake.spin(reverse);
-      }
-      else if (Controller1.ButtonR1.pressing())
-      {
-        Intake.spin(forward);
-      }
-      else 
-      {
-        Intake.stop();
-      }
-    }
-
-    if (!clampMoving)
-    {
-      if (Controller1.ButtonLeft.pressing())
-      {
-        ClampScoopRatchet.spin(reverse);
-      }
-      else if (Controller1.ButtonRight.pressing())
-      {
-        ClampScoopRatchet.spin(forward);
-      }
-      else
-      {
-        ClampScoopRatchet.stop();
-      }
-    }
-
-    if (Controller1.ButtonL2.pressing())
-    {
-      WallThingy.spin(reverse);
-    }
-    else if (Controller1.ButtonL1.pressing())
-    {
-      WallThingy.spin(forward);
-    }
-    else
-    {
-      WallThingy.stop();
-    }
-
-    if (Controller1.ButtonA.pressing() && !clampMoving)
-    {
-      vex::thread clampThread(openClamp);
-    }
-
-    if (Controller1.ButtonB.pressing() && !clampMoving)
-    {
-      vex::thread clampThread(closeClamp);
-    }
-
-    if (Controller1.ButtonDown.pressing() && !ladyBrownMoving)
-    {
-      WallThingy.spinFor(-170, degrees);
-    }
-
-    if (Controller1.ButtonUp.pressing())
-    {
-      ClampScoopRatchet.stop();
-    }
-
-    chassis.control_tank();
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
-  }
-}
-
 void noColor()
 {
-  ClampScoopRatchet.setPosition(0, degrees);
-  WallThingy.setStopping(vex::hold);
-  ClampScoopRatchet.setStopping(vex::hold);
-  // Changing the velocity of the motors and sides
-  Left1.setVelocity(100, percent);
-  Left2.setVelocity(100, percent);
-  Left3.setVelocity(100, percent);
-  Right1.setVelocity(100, percent);
-  Right2.setVelocity(100, percent);
-  Right3.setVelocity(100, percent);
-  Intake.setVelocity(100, percent);
-  ClampScoopRatchet.setVelocity(100, percent);
-  WallThingy.setVelocity(100, percent);
-
-  COLOR.setLight(ledState::on);
-  COLOR.brightness(100);
-  int hueColor = COLOR.hue();
-
+  WallMce.setBrake(vex::brakeType::hold);
+  robot_auton_constants();
   while (1)
   {
+    chassis.control_tank();
+
     if (Controller1.ButtonR2.pressing())
     {
-      Intake.spin(reverse);
+      IntakeT.spin(forward);
+      IntakeB.spin(forward);
     }
     else if (Controller1.ButtonR1.pressing())
     {
-      Intake.spin(forward);
+      IntakeT.spin(reverse);
+      IntakeB.spin(reverse);
     }
-    else 
+    else
     {
-      Intake.stop();
-    }
-  
-
-    if (!clampMoving)
-    {
-      if (Controller1.ButtonLeft.pressing())
-      {
-        ClampScoopRatchet.spin(reverse);
-      }
-      else if (Controller1.ButtonRight.pressing())
-      {
-        ClampScoopRatchet.spin(forward);
-      }
-      else
-      {
-        ClampScoopRatchet.stop();
-      }
+      IntakeT.stop();
+      IntakeB.stop();
     }
 
     if (Controller1.ButtonL2.pressing())
     {
-      WallThingy.spin(reverse);
+      WallMce.spin(forward);
     }
-    else if (Controller1.ButtonL1.pressing())
+    else if(Controller1.ButtonL1.pressing())
     {
-      WallThingy.spin(forward);
+      WallMce.spin(reverse);
     }
     else
     {
-      WallThingy.stop();
+      WallMce.stop();
     }
 
-    if (Controller1.ButtonA.pressing() && !clampMoving)
+    if (Controller1.ButtonB.pressing())
     {
-      vex::thread clampThread(openClamp);
+      Clamp.set(true);
+    }
+    else if (Controller1.ButtonY.pressing())
+    {
+      Clamp.set(false);
     }
 
-    if (Controller1.ButtonB.pressing() && !clampMoving)
+    if (Controller1.ButtonDown.pressing())
     {
-      vex::thread clampThread(closeClamp);
-    } 
-
-    if (Controller1.ButtonDown.pressing() && !ladyBrownMoving)
-    {
-      WallThingy.spinFor(-170, degrees);
+      Scoop.set(true);
     }
-
-    if (Controller1.ButtonUp.pressing())
+    else if (Controller1.ButtonRight.pressing())
     {
-      ClampScoopRatchet.stop();
-    } 
-
-    chassis.control_tank();
-    wait(20, msec); // Sleep the task for a short amount of time to
-                    // prevent wasted resources.
+      Scoop.set(false);
+    }
   }
+
+  wait (20, msec);
 }
