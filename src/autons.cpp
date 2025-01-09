@@ -76,36 +76,38 @@ void robot_auton_constants()
 void red_tower_rush_bad()
 {
   robot_auton_constants();
-  chassis.drive_distance(63);
+  chassis.drive_distance(60);
   Scoop.set(true);
   wait (400, msec);
-  chassis.drive_distance(-17);
+  chassis.drive_distance(-14);
   Scoop.set(false);
-  WallMce.spinFor(forward, 300, degrees, false);
-  chassis.drive_distance(-30);
-  chassis.turn_to_angle(130);
-  chassis.drive_distance(-15);
-  chassis.drive_distance(-5);
-  Clamp.set(true);
-  wait(300, msec);
-  IntakeT.spinFor(forward, 450, degrees, true);
-  chassis.left_swing_to_angle(70);
-  Clamp.set(false);
-  IntakeB.spin(forward);
-  wait (100, msec);
-  chassis.set_coordinates(0, 0, 0);
-  chassis.drive_distance(40);
-  wait (50, msec);
-  chassis.drive_distance(-10);
-  chassis.turn_to_angle(110);
+  WallMce.spinFor(forward, 200, degrees, false);
   chassis.drive_distance(-20);
+  chassis.turn_to_angle(35);
+  IntakeB.spin(forward);
+  chassis.drive_distance(30);
+  wait(100, msec);
+  chassis.drive_distance(-15);
+  chassis.turn_to_angle(175);
+  chassis.drive_distance(-17);
   chassis.drive_distance(-5);
   Clamp.set(true);
+  wait(100, msec);
   IntakeT.spin(forward);
-  wait (700, msec);
-  WallMce.spinFor(forward, 150, degrees, false);
-  chassis.turn_to_angle(190);
-  chassis.drive_distance(40);
+  wait(200, msec);
+  chassis.turn_to_angle(165);
+  chassis.drive_distance(55);
+  IntakeT.stop();
+  chassis.turn_to_angle(250);
+  Clamp.set(false);
+  wait(100, msec);
+  chassis.turn_to_angle(130);
+  chassis.drive_distance(-30);
+  chassis.drive_distance(-5);
+  Clamp.set(true);
+  wait(100, msec);
+  IntakeT.spin(forward);
+  wait(15, seconds);
 }
 
 void red_ring_rush()
