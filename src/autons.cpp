@@ -90,23 +90,25 @@ void red_tower_rush_bad()
   chassis.drive_distance(-15);
   chassis.turn_to_angle(175);
   chassis.drive_distance(-17);
-  chassis.drive_distance(-5);
+  chassis.drive_distance(-8);
   Clamp.set(true);
   wait(100, msec);
   IntakeT.spin(forward);
   wait(200, msec);
   chassis.turn_to_angle(165);
-  chassis.drive_distance(55);
+  chassis.drive_distance(58);
   IntakeT.stop();
   chassis.turn_to_angle(250);
   Clamp.set(false);
   wait(100, msec);
   chassis.turn_to_angle(130);
-  chassis.drive_distance(-30);
-  chassis.drive_distance(-5);
+  chassis.drive_distance(-35);
+  chassis.drive_distance(-6);
   Clamp.set(true);
-  wait(100, msec);
+  wait(200, msec);
   IntakeT.spin(forward);
+  wait(1500, msec);
+  chassis.drive_distance(-40);
   wait(15, seconds);
 }
 
