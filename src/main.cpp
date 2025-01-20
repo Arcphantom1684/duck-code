@@ -132,28 +132,28 @@ void pre_match() {
     switch(current_auton_selection)
     {
       case 0:
-        Brain.Screen.printAt(5, 140, "Blue WP | 3 Rings");
-        Brain.Screen.setFillColor(color::red);
+        Brain.Screen.printAt(5, 140, "Blue Ring Rush");
+        Brain.Screen.setFillColor(color::blue);
         Brain.Screen.drawRectangle(200, 200, 50, 50);
-        Brain.Screen.setFillColor(color::red);
+        Brain.Screen.setFillColor(color::blue);
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Blue WP | 3 Rings");
+        Brain.Screen.printAt(5, 140, "Blue Tower Rush");
         Brain.Screen.setFillColor(color::blue);
         Brain.Screen.drawRectangle(200, 200, 50, 50);
         Brain.Screen.setFillColor(color::blue);
         break;
       case 2:
-        Brain.Screen.printAt(5, 140, "Red Rush");
+        Brain.Screen.printAt(5, 140, "Red Ring Rush");
         Brain.Screen.setFillColor(color::red);
         Brain.Screen.drawRectangle(200, 200, 50, 50);
         Brain.Screen.setFillColor(color::red);
         break;
       case 3:
-        Brain.Screen.printAt(5, 140, "Blue Rush");
-        Brain.Screen.setFillColor(color::blue);
+        Brain.Screen.printAt(5, 140, "Red Tower Rush");
+        Brain.Screen.setFillColor(color::red);
         Brain.Screen.drawRectangle(200, 200, 50, 50);
-        Brain.Screen.setFillColor(color::blue);
+        Brain.Screen.setFillColor(color::red);
         break;
       case 4:
         Brain.Screen.printAt(5, 140, "Red WP | 3 Rings");
@@ -227,10 +227,11 @@ void autonomous(void)
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      red_tower_rush_bad();
+      red_ring_rush();
       noColor();
       break;
-    case 1:         
+    case 1:
+      blue_ring_rush();      
       noColor();
       break;
     case 2:

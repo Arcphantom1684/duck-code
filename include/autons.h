@@ -13,11 +13,9 @@ void robot_auton_constants();
 
 // auton
 void red_ring_rush();
-void red_wp_3rings();
-void red_wp_4rings();
-void blue_wp_4rings();
+void blue_ring_rush();
+void blue_tower_rush_bad();
 void red_tower_rush_bad();
-void blue_wp_3rings();
 void skills();
 void actual_solo_wp();
 

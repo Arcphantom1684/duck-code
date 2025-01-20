@@ -1,15 +1,7 @@
 #include "vex.h"
 
-int Acounter = 0;
-bool clampMoving = false;
-bool intakeMoving = false;
-bool ladyBrownMoving = false;
 
-// Methods
-void CloseClamp()
-{
-  Clamp.set(true);
-}
+
 
 // Constants
 void odom_test()
@@ -67,12 +59,51 @@ void robot_auton_constants()
   IntakeT.setVelocity(101, percent);
   IntakeB.setVelocity(101, percent);
   WallMce.setVelocity(100, percent);
+  WallMce.setPosition(0, degrees);
 }
 
 
 
 
 // Auton
+void blue_tower_rush_bad()
+{
+  robot_auton_constants();
+  IntakeB.spin(forward);
+  chassis.drive_distance(60);
+  Scoop.set(true);
+  wait(200, msec);
+  IntakeB.stop();
+  wait (200, msec);
+  chassis.drive_distance(-20);
+  wait (50, msec);
+  Scoop.set(false);
+  chassis.drive_distance(-15);
+  chassis.turn_to_angle(-165);
+  chassis.drive_distance(-22);
+  chassis.drive_distance(-8);
+  Clamp.set(true);
+  wait (350, msec);
+  IntakeB.spin(forward);
+  IntakeT.spin(forward);
+  chassis.turn_to_angle(165);
+  chassis.drive_distance(45);
+  IntakeT.stop();
+  chassis.turn_to_angle(90);
+  chassis.drive_distance(-10);
+  Clamp.set(false);
+  wait (100, msec);
+  chassis.turn_to_angle(225);
+  /*chassis.drive_distance(-7);
+  chassis.drive_distance(-10);
+  Clamp.set(true);
+  IntakeT.spin(forward);
+  chassis.turn_to_angle(135);
+  chassis.drive_distance(30);
+  Scoop.set(true);
+  wait (15, seconds);*/
+}
+
 void red_tower_rush_bad()
 {
   robot_auton_constants();
@@ -101,9 +132,9 @@ void red_tower_rush_bad()
   chassis.turn_to_angle(250);
   Clamp.set(false);
   wait(100, msec);
-  chassis.turn_to_angle(130);
+  chassis.turn_to_angle(125);
   chassis.drive_distance(-35);
-  chassis.drive_distance(-6);
+  chassis.drive_distance(-8);
   Clamp.set(true);
   wait(200, msec);
   IntakeT.spin(forward);
@@ -131,7 +162,7 @@ void red_ring_rush()
   IntakeT.spin(forward);
   chassis.turn_to_angle(-195);
   wait(20, msec);
-  chassis.drive_distance(43);
+  chassis.drive_distance(40);
   wait(100, msec);
   chassis.right_swing_to_angle(-244);
   chassis.drive_distance(28);
@@ -143,6 +174,42 @@ void red_ring_rush()
   chassis.drive_distance(22);
   wait(100, msec);
   chassis.turn_to_angle(-90);
+  WallMce.spinFor(forward, 100, degrees, false);
+  chassis.drive_distance(40);
+}
+
+void blue_ring_rush()
+{
+  robot_auton_constants();
+  chassis.turn_to_angle(5);
+  chassis.drive_distance(17);
+  WallMce.spinFor(forward, 550, degrees, true);
+  wait(20, msec);
+  chassis.drive_distance(-17);
+  WallMce.spinFor(reverse, 300, degrees, false);
+  chassis.turn_to_angle(-1);
+  chassis.drive_distance(-25);
+  chassis.drive_distance(-7);
+  chassis.drive_distance(-4);
+  Clamp.set(true);
+  wait(250, msec);
+  IntakeB.spin(forward);
+  IntakeT.spin(forward);
+  chassis.turn_to_angle(195);
+  wait(20, msec);
+  chassis.drive_distance(43);
+  wait(100, msec);
+  chassis.left_swing_to_angle(244);
+  chassis.drive_distance(28);
+  wait(200, msec);
+  chassis.drive_distance(-10);
+  chassis.turn_to_angle(230);
+  chassis.drive_distance(-40);
+  chassis.turn_to_angle(270);
+  chassis.drive_distance(22);
+  wait(100, msec);
+  chassis.turn_to_angle(90);
+  WallMce.spinFor(forward, 100, degrees, false);
   chassis.drive_distance(40);
 }
 
@@ -224,6 +291,16 @@ void noColor()
     else if (Controller1.ButtonRight.pressing())
     {
       Scoop.set(false);
+    }
+
+    if (Controller1.ButtonX.pressing())
+    {
+      WallMce.spin(reverse, 30, percent);
+    }
+
+    if (Controller1.ButtonA.pressing())
+    {
+      WallMce.spin(forward, 30, percent);
     }
   }
 
