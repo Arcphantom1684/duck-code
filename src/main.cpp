@@ -138,16 +138,16 @@ void pre_match() {
         Brain.Screen.setFillColor(color::blue);
         break;
       case 1:
-        Brain.Screen.printAt(5, 140, "Blue Tower Rush");
-        Brain.Screen.setFillColor(color::blue);
-        Brain.Screen.drawRectangle(200, 200, 50, 50);
-        Brain.Screen.setFillColor(color::blue);
-        break;
-      case 2:
         Brain.Screen.printAt(5, 140, "Red Ring Rush");
         Brain.Screen.setFillColor(color::red);
         Brain.Screen.drawRectangle(200, 200, 50, 50);
         Brain.Screen.setFillColor(color::red);
+        break;
+      case 2:
+        Brain.Screen.printAt(5, 140, "Blue Tower Rush");
+        Brain.Screen.setFillColor(color::blue);
+        Brain.Screen.drawRectangle(200, 200, 50, 50);
+        Brain.Screen.setFillColor(color::blue);
         break;
       case 3:
         Brain.Screen.printAt(5, 140, "Red Tower Rush");
@@ -227,17 +227,19 @@ void autonomous(void)
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      red_ring_rush();
+      blue_ring_rush();
       noColor();
       break;
     case 1:
-      blue_ring_rush();      
+      red_ring_rush();      
       noColor();
       break;
     case 2:
+      blue_tower_rush_bad();
       noColor();
       break;
     case 3:
+      red_tower_rush_bad();
       noColor();
       break;
     case 4:

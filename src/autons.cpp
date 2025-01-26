@@ -2,7 +2,6 @@
 
 
 
-
 // Constants
 void odom_test()
 {
@@ -320,14 +319,13 @@ void noColor()
       Scoop.set(false);
     }
 
-    if (Controller1.ButtonX.pressing())
-    {
-      WallMce.spin(reverse, 30, percent);
-    }
-
     if (Controller1.ButtonA.pressing())
     {
-      WallMce.spin(forward, 30, percent);
+      WallMce.spinFor(forward, 10, degrees);
+    }
+    if (Controller1.ButtonX.pressing())
+    {
+      WallMce.spinFor(reverse, 10, degrees);
     }
   }
 
