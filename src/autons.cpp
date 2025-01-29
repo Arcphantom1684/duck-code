@@ -1,5 +1,47 @@
 #include "vex.h"
 
+// Variables
+bool intakeMoving = false;
+
+// Methods
+void ringThrow_blue()
+{
+  COLOR.setLight(ledState::on);
+  COLOR.brightness(100);
+  while (1)
+  {
+    if (COLOR.hue() > 200 && COLOR.hue() < 300)
+    {
+      intakeMoving = true;
+      IntakeT.stop();
+      IntakeT.spinFor(forward, 300, degrees, true);
+      IntakeT.spinFor(reverse, 100, degrees, true);
+      wait (500, msec);
+      intakeMoving = false;
+    }
+    intakeMoving = false;
+  }
+}
+
+void ringThrow_red()
+{
+  COLOR.setLight(ledState::on);
+  COLOR.brightness(100);
+  while (1)
+  {
+    if (COLOR.hue() < 20)
+    {
+      intakeMoving = true;
+      IntakeT.stop();
+      IntakeT.spinFor(forward, 300, degrees, true);
+      IntakeT.spinFor(reverse, 100, degrees, true);
+      wait (500, msec);
+      intakeMoving = false;
+    }
+    intakeMoving = false;
+  }
+}
+
 
 
 // Constants
@@ -321,7 +363,148 @@ void noColor()
 
     if (Controller1.ButtonA.pressing())
     {
-      WallMce.spinFor(forward, 10, degrees);
+      WallMce.stop();
+      WallMce.spinFor(forward, 50, degrees);
+    }
+    if (Controller1.ButtonX.pressing())
+    {
+      WallMce.spinFor(reverse, 10, degrees);
+    }
+  }
+
+  wait (20, msec);
+}
+
+void blueColor()
+{
+  vex::thread intakeThread(ringThrow_red);
+  WallMce.setBrake(vex::brakeType::hold);
+  robot_auton_constants();
+  while (1)
+  {
+    chassis.control_tank();
+
+    if (Controller1.ButtonR2.pressing() && !intakeMoving)
+    {
+      IntakeT.spin(forward);
+      IntakeB.spin(forward);
+    }
+    else if (Controller1.ButtonR1.pressing() && !intakeMoving)
+    {
+      IntakeT.spin(reverse);
+      IntakeB.spin(reverse);
+    }
+    else
+    {
+      IntakeT.stop();
+      IntakeB.stop();
+    }
+
+    if (Controller1.ButtonL2.pressing())
+    {
+      WallMce.spin(forward);
+    }
+    else if(Controller1.ButtonL1.pressing())
+    {
+      WallMce.spin(reverse);
+    }
+    else
+    {
+      WallMce.stop();
+    }
+
+    if (Controller1.ButtonB.pressing())
+    {
+      Clamp.set(true);
+    }
+    else if (Controller1.ButtonY.pressing())
+    {
+      Clamp.set(false);
+    }
+
+    if (Controller1.ButtonDown.pressing())
+    {
+      Scoop.set(true);
+    }
+    else if (Controller1.ButtonRight.pressing())
+    {
+      Scoop.set(false);
+    }
+
+    if (Controller1.ButtonA.pressing())
+    {
+      WallMce.stop();
+      WallMce.spinFor(forward, 50, degrees);
+    }
+    if (Controller1.ButtonX.pressing())
+    {
+      WallMce.spinFor(reverse, 10, degrees);
+    }
+  }
+
+  wait (20, msec);
+}
+
+void redColor()
+{
+  vex::thread intakeThread(ringThrow_blue);
+  WallMce.setBrake(vex::brakeType::hold);
+  robot_auton_constants();
+  while (1)
+  {
+    chassis.control_tank();
+
+    if (Controller1.ButtonR2.pressing() && !intakeMoving)
+    {
+      IntakeT.spin(forward);
+      IntakeB.spin(forward);
+    }
+    else if (Controller1.ButtonR1.pressing() && !intakeMoving)
+    {
+      IntakeT.spin(reverse);
+      IntakeB.spin(reverse);
+    }
+    else
+    {
+      IntakeT.stop();
+      IntakeB.stop();
+    }
+
+    if (Controller1.ButtonL2.pressing())
+    {
+      WallMce.spin(forward);
+    }
+    else if(Controller1.ButtonL1.pressing())
+    {
+      WallMce.spin(reverse);
+    }
+    else
+    {
+      WallMce.stop();
+    }
+
+    if (Controller1.ButtonB.pressing())
+    {
+      Clamp.set(true);
+    }
+    else if (Controller1.ButtonY.pressing())
+    {
+      Clamp.set(false);
+    }
+
+    if (Controller1.ButtonDown.pressing())
+    {
+      Scoop.set(true);
+    }
+    else if (Controller1.ButtonRight.pressing())
+    {
+      Scoop.set(false);
+    }
+
+    if (Controller1.ButtonA.pressing())
+    {
+      WallMce.stop();
+      WallMce.spinFor(forward, 50, degrees);
     }
     if (Controller1.ButtonX.pressing())
     {

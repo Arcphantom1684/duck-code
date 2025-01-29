@@ -228,19 +228,19 @@ void autonomous(void)
   switch(current_auton_selection){ 
     case 0:
       blue_ring_rush();
-      noColor();
+      blueColor();
       break;
     case 1:
       red_ring_rush();      
-      noColor();
+      redColor();
       break;
     case 2:
       blue_tower_rush_bad();
-      noColor();
+      blueColor();
       break;
     case 3:
       red_tower_rush_bad();
-      noColor();
+      redColor();
       break;
     case 4:
       noColor();
@@ -295,6 +295,6 @@ int main()
 
   // Prevent main from exiting with an infinite loop.
   while (true) {
-    wait(100, msec);
+    //wait(100, msec);
   }
 }
