@@ -1,9 +1,70 @@
 #include "vex.h"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 // Variables
 bool intakeMoving = false;
-
+bool stand = false;
+bool inSim = false;
 // Methods
+
+void black_jack()
+{
+  inSim = true;
+  stand = false;
+  int card1 = (rand() % 10) + 2;
+  int card2 = (rand() % 10) + 2;
+  int total = card1 + card2;
+  int dealerVisible = (rand() % 10) + 2;
+  int dealerTotal = dealerVisible + ((rand() % 10) + 2);
+  Controller1.Screen.clearScreen();
+  Controller1.Screen.print("First Card: " + card1);
+  Controller1.Screen.newLine(); Controller1.Screen.print("Second Card: " + card2);
+  Controller1.Screen.newLine(); Controller1.Screen.print("Dealer Visible: " + dealerVisible);
+  Controller1.Screen.newLine(); Controller1.Screen.print("Press up for hit and left for stand");
+  if (Controller1.ButtonUp.pressing() && total < 21)
+  {
+    total += (rand() % 10) + 2;
+  }
+  else if (Controller1.ButtonLeft.pressing() || total > 21)
+  {
+    stand = true;
+  }
+  while (!stand)
+  {
+    Controller1.Screen.clearScreen();
+    Controller1.Screen.print("Your Total: " + total);
+    Controller1.Screen.newLine(); Controller1.Screen.print("Dealer Visible: " + dealerVisible);
+    Controller1.Screen.newLine(); Controller1.Screen.print("Press up for hit and left for stand");
+    if (Controller1.ButtonUp.pressing() && total < 21)
+    {
+      total += (rand() % 10) + 2;
+    }
+    else if (Controller1.ButtonLeft.pressing() && total > 21)
+    {
+      stand = true;
+    }
+  }
+  Controller1.Screen.clearScreen(); Controller1.Screen.print("You have: " + total);
+  while (dealerTotal < 17)
+  {
+    dealerTotal += (rand() % 10) + 2;
+  }
+  Controller1.Screen.newLine(); Controller1.Screen.print("Dealer has: " + dealerTotal);
+  Controller1.Screen.newLine();
+  if (total > 21)
+    Controller1.Screen.print("You Lose");
+  else if (total <= 21 && total > dealerTotal)
+    Controller1.Screen.print("You Win");
+  else if (total == dealerTotal)
+    Controller1.Screen.print("You Lose");
+  else if (total <= 21 && dealerTotal > 21)
+    Controller1.Screen.print("You Win");
+  inSim = false;
+}
+
+
 void ringThrow_blue()
 {
   COLOR.setLight(ledState::on);
@@ -370,6 +431,9 @@ void noColor()
     {
       WallMce.spinFor(reverse, 10, degrees);
     }
+
+    //Black Jack
+    
   }
 
   wait (20, msec);
