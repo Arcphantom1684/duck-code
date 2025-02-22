@@ -171,6 +171,9 @@ void robot_auton_constants()
 void skills()
 {
   robot_auton_constants();
+  LadyBrown.spinFor(forward, 400, degrees, false);
+  chassis.drive_distance(1);
+  wait(60, seconds);
 }
 void qual_GR_RED()
 {

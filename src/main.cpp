@@ -227,7 +227,7 @@ void autonomous(void)
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      blueColor();
+      skills();
       break;
     case 1:
       redColor();
@@ -265,7 +265,9 @@ void autonomous(void)
 
 void usercontrol(void) 
 {
-  if (current_auton_selection % 2 == 1)
+  if (current_auton_selection == 0)
+    noColor();
+  else if (current_auton_selection % 2 == 1)
     redColor();
   else if (current_auton_selection % 2 == 0)
     blueColor();
