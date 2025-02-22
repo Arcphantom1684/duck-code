@@ -168,7 +168,42 @@ void robot_auton_constants()
 
 
 // Auton
+void skills()
+{
 
+}
+void qual_GR_RED()
+{
+
+}
+void qual_GR_BLUE()
+{
+
+}
+void qual_ALring_RED()
+{
+
+}
+void qual_ALring_BLUE()
+{
+
+}
+void elim_ring_RED()
+{
+
+}
+void elim_ring_BLUE()
+{
+
+}
+void elim_GR_RED()
+{
+
+}
+void elim_GR_BLUE()
+{
+  
+}
 
 
 
