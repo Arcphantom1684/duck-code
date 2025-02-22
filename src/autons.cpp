@@ -170,7 +170,7 @@ void robot_auton_constants()
 // Auton
 void skills()
 {
-
+  robot_auton_constants();
 }
 void qual_GR_RED()
 {
@@ -202,9 +202,8 @@ void elim_GR_RED()
 }
 void elim_GR_BLUE()
 {
-  
-}
 
+}
 
 
 
