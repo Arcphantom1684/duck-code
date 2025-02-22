@@ -170,7 +170,10 @@ void robot_auton_constants()
 
 
 // Auton
-
+void drive()
+{
+  robot_auton_constants();
+}
 
 
 

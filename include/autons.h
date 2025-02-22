@@ -12,7 +12,7 @@ void odom_test();
 void robot_auton_constants();
 
 // auton
-
+void drive();
 
 // driver control
 void redColor();
