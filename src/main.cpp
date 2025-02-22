@@ -265,7 +265,10 @@ void autonomous(void)
 
 void usercontrol(void) 
 {
-  noColor();
+  if (current_auton_selection % 2 == 1)
+    redColor();
+  else if (current_auton_selection % 2 == 0)
+    blueColor();
 }
 
 //

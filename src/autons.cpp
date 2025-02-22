@@ -76,7 +76,6 @@ void ringThrow_blue()
     if (COLOR.hue() > 200 && COLOR.hue() < 300)
     {
       intakeMoving = true;
-      IntakeT.stop();
       IntakeT.spinFor(forward, 300, degrees, true);
       IntakeT.spinFor(reverse, 100, degrees, true);
       wait (500, msec);
@@ -95,7 +94,6 @@ void ringThrow_red()
     if (COLOR.hue() < 20)
     {
       intakeMoving = true;
-      IntakeT.stop();
       IntakeT.spinFor(forward, 300, degrees, true);
       IntakeT.spinFor(reverse, 100, degrees, true);
       wait (500, msec);
@@ -257,6 +255,12 @@ void noColor()
         flag_RightS == true;
     }
 
+    if (Controller1.ButtonLeft.pressing())
+    {
+      RightScoop.set(false);
+      LeftScoop.set(false);
+    }
+
     if (Controller1.ButtonA.pressing())
     {
       LadyBrown.stop();
@@ -286,12 +290,12 @@ void blueColor()
     if (Controller1.ButtonR2.pressing() && !intakeMoving)
     {
       IntakeT.spin(forward);
-      IntakeB.spin(forward);
+      IntakeB.spin(reverse);
     }
     else if (Controller1.ButtonR1.pressing() && !intakeMoving)
     {
       IntakeT.spin(reverse);
-      IntakeB.spin(reverse);
+      IntakeB.spin(forward);
     }
     else
     {
@@ -353,6 +357,12 @@ void blueColor()
         flag_RightS == false;
       else
         flag_RightS == true;
+    }
+
+    if (Controller1.ButtonLeft.pressing())
+    {
+      RightScoop.set(false);
+      LeftScoop.set(false);
     }
 
     if (Controller1.ButtonA.pressing())
@@ -381,12 +391,12 @@ void redColor()
     if (Controller1.ButtonR2.pressing() && !intakeMoving)
     {
       IntakeT.spin(forward);
-      IntakeB.spin(forward);
+      IntakeB.spin(reverse);
     }
     else if (Controller1.ButtonR1.pressing() && !intakeMoving)
     {
       IntakeT.spin(reverse);
-      IntakeB.spin(reverse);
+      IntakeB.spin(forward);
     }
     else
     {
@@ -448,6 +458,12 @@ void redColor()
         flag_RightS == false;
       else
         flag_RightS == true;
+    }
+
+    if (Controller1.ButtonLeft.pressing())
+    {
+      RightScoop.set(false);
+      LeftScoop.set(false);
     }
 
     if (Controller1.ButtonA.pressing())

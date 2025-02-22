@@ -12,14 +12,15 @@ void odom_test();
 void robot_auton_constants();
 
 // auton
-void red_tower_rush_good();
-void tune_pid();
-void red_ring_rush();
-void blue_ring_rush();
-void blue_tower_rush_bad();
-void red_tower_rush_bad();
 void skills();
-void actual_solo_wp();
+void qual_GR_RED();
+void qual_GR_BLUE();
+void qual_ALring_RED();
+void qual_ALring_BLUE();
+void elim_ring_RED();
+void elim_ring_BLUE();
+void elim_GR_RED();
+void elim_GR_BLUE();
 
 // driver control
 void redColor();
