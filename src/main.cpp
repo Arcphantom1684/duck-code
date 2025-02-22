@@ -227,19 +227,15 @@ void autonomous(void)
   auto_started = true;
   switch(current_auton_selection){ 
     case 0:
-      blue_ring_rush();
       blueColor();
       break;
     case 1:
-      red_ring_rush();      
       redColor();
       break;
     case 2:
-      blue_tower_rush_bad();
       blueColor();
       break;
     case 3:
-      red_tower_rush_bad();
       redColor();
       break;
     case 4:
