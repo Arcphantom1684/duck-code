@@ -4,6 +4,8 @@
 #include <ctime>
 
 // Variables
+bool flag_RightS = false;
+bool flag_LeftS = false;
 bool intakeMoving = false;
 bool stand = false;
 bool inSim = false;
@@ -160,8 +162,8 @@ void robot_auton_constants()
   Right3.setVelocity(100, percent);
   IntakeT.setVelocity(101, percent);
   IntakeB.setVelocity(101, percent);
-  WallMce.setVelocity(100, percent);
-  WallMce.setPosition(0, degrees);
+  LadyBrown.setVelocity(100, percent);
+  LadyBrown.setPosition(0, degrees);
 }
 
 
@@ -169,207 +171,15 @@ void robot_auton_constants()
 
 // Auton
 
-void tune_pid()
-{
-  chassis.drive_distance(-20);
-  chassis.turn_to_angle(-90);
-  chassis.drive_distance(-10);
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(-10);
-  chassis.turn_to_angle(0);
-  chassis.drive_distance(20);
-}
 
-void red_tower_rush_good()
-{
-  robot_auton_constants();
-  robot_auton_constants();
-  chassis.drive_distance(60);
-  Scoop.set(true);
-  wait (400, msec);
-  chassis.drive_distance(-14);
-  Scoop.set(false);
-  chassis.drive_distance(-10);
-  chassis.turn_to_angle(10);
-  chassis.drive_distance(23);
-  wait(15, seconds);
-}
 
-void blue_tower_rush_bad()
-{
-  robot_auton_constants();
-  IntakeB.spin(forward);
-  chassis.drive_distance(60);
-  Scoop.set(true);
-  wait(200, msec);
-  IntakeB.stop();
-  wait (200, msec);
-  chassis.drive_distance(-20);
-  wait (50, msec);
-  Scoop.set(false);
-  chassis.drive_distance(-15);
-  chassis.turn_to_angle(-165);
-  chassis.drive_distance(-22);
-  chassis.drive_distance(-8);
-  Clamp.set(true);
-  wait (350, msec);
-  IntakeB.spin(forward);
-  IntakeT.spin(forward);
-  chassis.turn_to_angle(165);
-  chassis.drive_distance(45);
-  IntakeT.stop();
-  chassis.turn_to_angle(90);
-  chassis.drive_distance(-10);
-  Clamp.set(false);
-  wait (100, msec);
-  chassis.turn_to_angle(225);
-  /*chassis.drive_distance(-7);
-  chassis.drive_distance(-10);
-  Clamp.set(true);
-  IntakeT.spin(forward);
-  chassis.turn_to_angle(135);
-  chassis.drive_distance(30);
-  Scoop.set(true);
-  wait (15, seconds);*/
-}
 
-void red_tower_rush_bad()
-{
-  robot_auton_constants();
-  chassis.drive_distance(60);
-  Scoop.set(true);
-  wait (400, msec);
-  chassis.drive_distance(-14);
-  Scoop.set(false);
-  WallMce.spinFor(forward, 200, degrees, false);
-  chassis.drive_distance(-20);
-  chassis.turn_to_angle(35);
-  IntakeB.spin(forward);
-  chassis.drive_distance(30);
-  wait(100, msec);
-  chassis.drive_distance(-15);
-  chassis.turn_to_angle(175);
-  chassis.drive_distance(-17);
-  chassis.drive_distance(-8);
-  Clamp.set(true);
-  wait(100, msec);
-  IntakeT.spin(forward);
-  wait(200, msec);
-  chassis.turn_to_angle(165);
-  chassis.drive_distance(47);
-  IntakeT.stop();
-  chassis.turn_to_angle(250);
-  Clamp.set(false);
-  wait(100, msec);
-  chassis.turn_to_angle(125);
-  chassis.drive_distance(-35);
-  chassis.drive_distance(-8);
-  Clamp.set(true);
-  wait(200, msec);
-  IntakeT.spin(forward);
-  wait(1500, msec);
-  chassis.drive_distance(-40);
-  wait(15, seconds);
-}
-
-void red_ring_rush()
-{
-  robot_auton_constants();
-  chassis.turn_to_angle(-5);
-  chassis.drive_distance(17);
-  WallMce.spinFor(forward, 550, degrees, true);
-  wait(20, msec);
-  chassis.drive_distance(-17);
-  WallMce.spinFor(reverse, 300, degrees, false);
-  chassis.turn_to_angle(1);
-  chassis.drive_distance(-25);
-  chassis.drive_distance(-7);
-  chassis.drive_distance(-4);
-  Clamp.set(true);
-  wait(250, msec);
-  IntakeB.spin(forward);
-  IntakeT.spin(forward);
-  chassis.turn_to_angle(-195);
-  wait(20, msec);
-  chassis.drive_distance(40);
-  wait(100, msec);
-  chassis.right_swing_to_angle(-244);
-  chassis.drive_distance(28);
-  wait(200, msec);
-  chassis.drive_distance(-10);
-  chassis.turn_to_angle(-230);
-  chassis.drive_distance(-40);
-  chassis.turn_to_angle(-270);
-  chassis.drive_distance(22);
-  wait(100, msec);
-  chassis.turn_to_angle(-90);
-  WallMce.spinFor(forward, 100, degrees, false);
-  chassis.drive_distance(40);
-}
-
-void blue_ring_rush()
-{
-  robot_auton_constants();
-  chassis.turn_to_angle(5);
-  chassis.drive_distance(17);
-  WallMce.spinFor(forward, 550, degrees, true);
-  wait(20, msec);
-  chassis.drive_distance(-17);
-  WallMce.spinFor(reverse, 300, degrees, false);
-  chassis.turn_to_angle(-1);
-  chassis.drive_distance(-25);
-  chassis.drive_distance(-7);
-  chassis.drive_distance(-4);
-  Clamp.set(true);
-  wait(250, msec);
-  IntakeB.spin(forward);
-  IntakeT.spin(forward);
-  chassis.turn_to_angle(195);
-  wait(20, msec);
-  chassis.drive_distance(43);
-  wait(100, msec);
-  chassis.left_swing_to_angle(244);
-  chassis.drive_distance(28);
-  wait(200, msec);
-  chassis.drive_distance(-10);
-  chassis.turn_to_angle(230);
-  chassis.drive_distance(-40);
-  chassis.turn_to_angle(270);
-  chassis.drive_distance(22);
-  wait(100, msec);
-  chassis.turn_to_angle(90);
-  WallMce.spinFor(forward, 100, degrees, false);
-  chassis.drive_distance(40);
-}
-
-void actual_solo_wp()
-{
-  robot_auton_constants();
-  chassis.turn_to_angle(-5);
-  chassis.drive_distance(17);
-  WallMce.spinFor(forward, 550, degrees, true);
-  wait(20, msec);
-  chassis.drive_distance(-14);
-  WallMce.spinFor(reverse, 300, degrees, false);
-  chassis.turn_to_angle(110);
-  IntakeB.spin(forward);
-  chassis.drive_distance(33);
-  wait(200, msec);
-  chassis.drive_distance(-41);
-  chassis.turn_to_angle(-4);
-  chassis.drive_distance(-35);
-  chassis.drive_distance(-7);
-  Clamp.set(true);
-  wait(250, msec);
-  IntakeT.spin(forward);
-  chassis.turn_to_angle(110);
-}
 
 
 // Driver Control
 void noColor()
 {
-  WallMce.setBrake(vex::brakeType::hold);
+  LadyBrown.setBrake(vex::brakeType::hold);
   robot_auton_constants();
   while (1)
   {
@@ -378,12 +188,12 @@ void noColor()
     if (Controller1.ButtonR2.pressing())
     {
       IntakeT.spin(forward);
-      IntakeB.spin(forward);
+      IntakeB.spin(reverse);
     }
     else if (Controller1.ButtonR1.pressing())
     {
       IntakeT.spin(reverse);
-      IntakeB.spin(reverse);
+      IntakeB.spin(forward);
     }
     else
     {
@@ -393,15 +203,15 @@ void noColor()
 
     if (Controller1.ButtonL2.pressing())
     {
-      WallMce.spin(forward);
+      LadyBrown.spin(forward);
     }
     else if(Controller1.ButtonL1.pressing())
     {
-      WallMce.spin(reverse);
+      LadyBrown.spin(reverse);
     }
     else
     {
-      WallMce.stop();
+      LadyBrown.stop();
     }
 
     if (Controller1.ButtonB.pressing())
@@ -415,21 +225,46 @@ void noColor()
 
     if (Controller1.ButtonDown.pressing())
     {
-      Scoop.set(true);
+      if (flag_LeftS)
+      {
+        LeftScoop.set(false);
+      }
+      else if (!flag_LeftS)
+      {
+        LeftScoop.set(true);
+      }
+
+      if (flag_LeftS == true)
+        flag_LeftS == false;
+      else
+        flag_LeftS == true;
     }
-    else if (Controller1.ButtonRight.pressing())
+
+    if (Controller1.ButtonRight.pressing())
     {
-      Scoop.set(false);
+      if (flag_RightS)
+      {
+        RightScoop.set(false);
+      }
+      else if (!flag_RightS)
+      {
+        RightScoop.set(true);
+      }
+
+      if (flag_RightS == true)
+        flag_RightS == false;
+      else
+        flag_RightS == true;
     }
 
     if (Controller1.ButtonA.pressing())
     {
-      WallMce.stop();
-      WallMce.spinFor(forward, 50, degrees);
+      LadyBrown.stop();
+      LadyBrown.spinFor(forward, 50, degrees);
     }
     if (Controller1.ButtonX.pressing())
     {
-      WallMce.spinFor(reverse, 10, degrees);
+      LadyBrown.spinFor(reverse, 10, degrees);
     }
 
     //Black Jack
@@ -442,7 +277,7 @@ void noColor()
 void blueColor()
 {
   vex::thread intakeThread(ringThrow_red);
-  WallMce.setBrake(vex::brakeType::hold);
+  LadyBrown.setBrake(vex::brakeType::hold);
   robot_auton_constants();
   while (1)
   {
@@ -466,15 +301,15 @@ void blueColor()
 
     if (Controller1.ButtonL2.pressing())
     {
-      WallMce.spin(forward);
+      LadyBrown.spin(forward);
     }
     else if(Controller1.ButtonL1.pressing())
     {
-      WallMce.spin(reverse);
+      LadyBrown.spin(reverse);
     }
     else
     {
-      WallMce.stop();
+      LadyBrown.stop();
     }
 
     if (Controller1.ButtonB.pressing())
@@ -488,21 +323,46 @@ void blueColor()
 
     if (Controller1.ButtonDown.pressing())
     {
-      Scoop.set(true);
+      if (flag_LeftS)
+      {
+        LeftScoop.set(false);
+      }
+      else if (!flag_LeftS)
+      {
+        LeftScoop.set(true);
+      }
+
+      if (flag_LeftS == true)
+        flag_LeftS == false;
+      else
+        flag_LeftS == true;
     }
-    else if (Controller1.ButtonRight.pressing())
+
+    if (Controller1.ButtonRight.pressing())
     {
-      Scoop.set(false);
+      if (flag_RightS)
+      {
+        RightScoop.set(false);
+      }
+      else if (!flag_RightS)
+      {
+        RightScoop.set(true);
+      }
+
+      if (flag_RightS == true)
+        flag_RightS == false;
+      else
+        flag_RightS == true;
     }
 
     if (Controller1.ButtonA.pressing())
     {
-      WallMce.stop();
-      WallMce.spinFor(forward, 50, degrees);
+      LadyBrown.stop();
+      LadyBrown.spinFor(forward, 50, degrees);
     }
     if (Controller1.ButtonX.pressing())
     {
-      WallMce.spinFor(reverse, 10, degrees);
+      LadyBrown.spinFor(reverse, 10, degrees);
     }
   }
 
@@ -512,7 +372,7 @@ void blueColor()
 void redColor()
 {
   vex::thread intakeThread(ringThrow_blue);
-  WallMce.setBrake(vex::brakeType::hold);
+  LadyBrown.setBrake(vex::brakeType::hold);
   robot_auton_constants();
   while (1)
   {
@@ -536,15 +396,15 @@ void redColor()
 
     if (Controller1.ButtonL2.pressing())
     {
-      WallMce.spin(forward);
+      LadyBrown.spin(forward);
     }
     else if(Controller1.ButtonL1.pressing())
     {
-      WallMce.spin(reverse);
+      LadyBrown.spin(reverse);
     }
     else
     {
-      WallMce.stop();
+      LadyBrown.stop();
     }
 
     if (Controller1.ButtonB.pressing())
@@ -558,21 +418,46 @@ void redColor()
 
     if (Controller1.ButtonDown.pressing())
     {
-      Scoop.set(true);
+      if (flag_LeftS)
+      {
+        LeftScoop.set(false);
+      }
+      else if (!flag_LeftS)
+      {
+        LeftScoop.set(true);
+      }
+
+      if (flag_LeftS == true)
+        flag_LeftS == false;
+      else
+        flag_LeftS == true;
     }
-    else if (Controller1.ButtonRight.pressing())
+
+    if (Controller1.ButtonRight.pressing())
     {
-      Scoop.set(false);
+      if (flag_RightS)
+      {
+        RightScoop.set(false);
+      }
+      else if (!flag_RightS)
+      {
+        RightScoop.set(true);
+      }
+
+      if (flag_RightS == true)
+        flag_RightS == false;
+      else
+        flag_RightS == true;
     }
 
     if (Controller1.ButtonA.pressing())
     {
-      WallMce.stop();
-      WallMce.spinFor(forward, 50, degrees);
+      LadyBrown.stop();
+      LadyBrown.spinFor(forward, 50, degrees);
     }
     if (Controller1.ButtonX.pressing())
     {
-      WallMce.spinFor(reverse, 10, degrees);
+      LadyBrown.spinFor(reverse, 10, degrees);
     }
   }
 
