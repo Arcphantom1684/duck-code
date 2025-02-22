@@ -174,35 +174,35 @@ void skills()
 }
 void qual_GR_RED()
 {
-
+  robot_auton_constants();
 }
 void qual_GR_BLUE()
 {
-
+  robot_auton_constants();
 }
 void qual_ALring_RED()
 {
-
+  robot_auton_constants();
 }
 void qual_ALring_BLUE()
 {
-
+  robot_auton_constants();
 }
 void elim_ring_RED()
 {
-
+  robot_auton_constants();
 }
 void elim_ring_BLUE()
 {
-
+  robot_auton_constants();
 }
 void elim_GR_RED()
 {
-
+  robot_auton_constants();
 }
 void elim_GR_BLUE()
 {
-
+  robot_auton_constants();
 }
 
 
